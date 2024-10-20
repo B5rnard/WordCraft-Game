@@ -102,6 +102,7 @@ class WordGame {
     }
 
     startGame() {
+        console.log('Starting game...');
         this.hideIntroPopup();
         this.gameStarted = true;
         this.selectNineLetterWord();
