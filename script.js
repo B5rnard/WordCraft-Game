@@ -2,7 +2,7 @@
 const firebaseConfig = {
     apiKey: "AIzaSyCIRwazCpmXp5el5pcyrVjoYb962fZpc7Y",
     authDomain: "wordcraft-17de9.firebaseapp.com",
-    databaseURL: "https://wordcraft-17de9-default-rtdb.firebaseio.com",  // Add this line
+    databaseURL: "https://wordcraft-17de9-default-rtdb.firebaseio.com",
     projectId: "wordcraft-17de9",
     storageBucket: "wordcraft-17de9.appspot.com",
     messagingSenderId: "411593162986",
@@ -10,17 +10,9 @@ const firebaseConfig = {
     measurementId: "G-8GQX7TV5NE"
 };
 
-let db;
-
-// Initialize Firebase with error handling
-try {
-    firebase.initializeApp(firebaseConfig);
-    db = firebase.database();
-    console.log("Firebase initialized successfully");
-} catch (error) {
-    console.error("Error initializing Firebase:", error);
-    db = null;
-}
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
 
 class WordGame {
     constructor() {
@@ -97,43 +89,6 @@ class WordGame {
         this.playAgainButton.addEventListener('click', () => this.resetGame());
     }
 
-    async updateDailyLeaderboard() {
-        if (db) {
-            try {
-                const snapshot = await db.ref('dailyScores').orderByValue().limitToLast(5).once('value');
-                const scores = [];
-                snapshot.forEach(childSnapshot => {
-                    scores.unshift(childSnapshot.val());
-                });
-                this.dailyScoresList.innerHTML = scores
-                    .map(score => `<li>${score}</li>`)
-                    .join('');
-            } catch (error) {
-                console.error("Error updating daily leaderboard:", error);
-                this.updateDailyLeaderboardWithMockData();
-            }
-        } else {
-            this.updateDailyLeaderboardWithMockData();
-        }
-    }
-
-    updateDailyLeaderboardWithMockData() {
-        console.log('Using mock data for daily leaderboard...');
-        const mockScores = [1000, 950, 900, 850, 800];
-        this.dailyScoresList.innerHTML = mockScores
-            .map(score => `<li>${score}</li>`)
-            .join('');
-    }
-
-    saveScoreToFirebase(score) {
-        if (db) {
-            const newScoreRef = db.ref('dailyScores').push();
-            newScoreRef.set(score);
-        } else {
-            console.log("Firebase not initialized. Score not saved to database.");
-        }
-    }
-
     startGame() {
         this.selectNineLetterWord();
         this.generateLetters();
@@ -179,7 +134,6 @@ class WordGame {
             letterTile.className = 'letter-tile';
             this.lettersElement.appendChild(letterTile);
         });
-        console.log('Letters rendered:', this.letters);
     }
 
     startTimer() {
@@ -303,16 +257,20 @@ class WordGame {
             localStorage.setItem('highScore', this.highScore);
             this.showMessage(`New High Score: ${this.highScore}!`);
         }
-        this.saveScoreToFirebase(this.score);
         this.updatePersonalLeaderboard();
+        this.saveScoreToFirebase(this.score);
         this.updateDailyLeaderboard();
         this.highScoreElement.textContent = this.highScore;
         this.playAgainButton.style.display = 'block';
     }
 
-        saveScoreToFirebase(score) {
-        const newScoreRef = db.ref('dailyScores').push();
-        newScoreRef.set(score);
+    saveScoreToFirebase(score) {
+        const today = new Date().toISOString().split('T')[0]; // Get today's date
+        const newScoreRef = db.ref(`scores/${today}`).push();
+        newScoreRef.set({
+            score: score,
+            timestamp: firebase.database.ServerValue.TIMESTAMP
+        });
     }
 
     updatePersonalLeaderboard() {
@@ -322,16 +280,24 @@ class WordGame {
         localStorage.setItem('personalLeaderboard', JSON.stringify(this.personalLeaderboard));
     
         this.personalScoresList.innerHTML = this.personalLeaderboard
-          .map(score => `<li>${score}</li>`)
+          .map((score, index) => `<li>${index + 1}. ${score}</li>`)
           .join('');
     }
 
     updateDailyLeaderboard() {
-        console.log('Updating daily leaderboard...');
-        const mockScores = [1000, 950, 900, 850, 800];
-        this.dailyScoresList.innerHTML = mockScores
-          .map(score => `<li>${score}</li>`)
-          .join('');
+        const today = new Date().toISOString().split('T')[0];
+        db.ref(`scores/${today}`)
+            .orderByChild('score')
+            .limitToLast(5)
+            .on('value', (snapshot) => {
+                const scores = [];
+                snapshot.forEach((childSnapshot) => {
+                    scores.unshift(childSnapshot.val().score);
+                });
+                this.dailyScoresList.innerHTML = scores
+                    .map((score, index) => `<li>${index + 1}. ${score}</li>`)
+                    .join('');
+            });
     }
 
     showMessage(message) {
