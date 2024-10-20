@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WordCraft</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <header class="app-header">
+            <h1>WordCraft</h1>
+            <p>Form words from the given letters before time runs out<br>Each word you guess adds its number of letters back to the clock in seconds!</p>
+        </header>
+
+        <main class="game-container">
+            <div class="game-area">
+                <div id="letters" class="letters-container"></div>
+
+                <div class="input-container">
+                    <input type="text" id="wordInput" placeholder="Enter your word">
+                    <button id="submitButton">Submit</button>
+                </div>
+
+                <div id="message" class="message-container"></div>
+
+                <div class="status-container">
+                    <div class="status-item">Score: <span id="score">0</span></div>
+                    <div class="status-item">Time: <span id="timer">30</span>s</div>
+                    <div class="status-item">Best: <span id="highScore">0</span></div>
+                </div>
+
+                <div id="guessedWords" class="guessed-words-container"></div>
+
+                <button id="playAgainButton" class="play-again-button">Play Again</button>
+            </div>
+
+            <div class="leaderboards-container">
+                <div class="personal-leaderboard">
+                    <h2>Your Top Scores</h2>
+                    <ol id="personalScores"></ol>
+                </div>
+                
+                <div class="daily-leaderboard">
+                    <h2>Today's Top Scores</h2>
+                    <ol id="dailyScores"></ol>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

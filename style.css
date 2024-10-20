@@ -1,0 +1,229 @@
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #121213;
+    color: #ffffff;
+    margin: 0;
+    padding: 0;
+}
+
+.app-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.app-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.app-header h1 {
+    font-size: 48px;
+    font-weight: 800;
+    margin: 0;
+    color: #ffffff;
+}
+
+.game-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 600px;
+}
+
+.game-area {
+    width: 100%;
+    margin-bottom: 30px;
+}
+
+.letters-container {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.letter-tile {
+    width: 48px;
+    height: 48px;
+    background-color: #3a3a3c;
+    color: #ffffff;
+    font-size: 32px;
+    font-weight: 700;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-transform: uppercase;
+    border-radius: 4px;
+}
+
+.input-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+#wordInput {
+    width: 70%;
+    padding: 12px;
+    font-size: 18px;
+    background-color: #1a1a1d;
+    color: #ffffff;
+    border: 2px solid #3a3a3c;
+    border-radius: 4px 0 0 4px;
+    outline: none;
+}
+
+#submitButton {
+    padding: 12px 20px;
+    font-size: 18px;
+    background-color: #538d4e;
+    color: #ffffff;
+    border: none;
+    border-radius: 0 4px 4px 0;
+    cursor: pointer;
+}
+
+.message-container {
+    background-color: #1a1a1d;
+    border: 2px solid #3a3a3c;
+    color: #ffffff;
+    padding: 15px;
+    border-radius: 8px;
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.status-container {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+}
+
+.status-item {
+    text-align: center;
+    font-size: 18px;
+}
+
+.guessed-words-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.guessed-word {
+    background-color: #3a3a3c;
+    color: #ffffff;
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+.play-again-button {
+    display: block;
+    width: 200px;
+    margin: 0 auto;
+    padding: 12px;
+    font-size: 18px;
+    background-color: #538d4e;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.leaderboards-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+    margin-top: 20px;
+    flex-wrap: wrap;
+}
+
+.personal-leaderboard, .daily-leaderboard {
+    background-color: #1a1a1d;
+    border: 2px solid #3a3a3c;
+    border-radius: 8px;
+    padding: 15px;
+    width: 100%;
+    max-width: 300px;
+    text-align: center;
+}
+
+.personal-leaderboard h2, .daily-leaderboard h2 {
+    color: #ffffff;
+    font-size: 18px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+ol {
+    padding-left: 20px;
+    color: #d7dadc;
+}
+
+li {
+    margin-bottom: 5px;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.modal-content {
+    background-color: #1a1a1d;
+    margin: 15% auto;
+    padding: 20px;
+    border: 2px solid #3a3a3c;
+    width: 80%;
+    max-width: 600px;
+    border-radius: 8px;
+    text-align: center;
+    color: #ffffff;
+}
+
+.close-button {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+    .leaderboards-container {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .personal-leaderboard, .daily-leaderboard {
+        width: 100%;
+        max-width: 300px;
+    }
+}
+
+@keyframes flash {
+    0% { background-color: #3a3a3c; }
+    50% { background-color: #538d4e; }
+    100% { background-color: #3a3a3c; }
+}
+
+.guessed-word.flash {
+    animation: flash 0.5s ease-in-out;
+}
