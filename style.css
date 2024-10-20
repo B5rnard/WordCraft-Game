@@ -170,21 +170,24 @@ body {
 
 ol {
     padding-left: 0;
-    list-style-position: inside;
+    list-style-type: none;
     color: #d7dadc;
     margin: 0;
-    list-style-type: none;
     counter-reset: leaderboard-counter;
 }
 
 li {
     margin-bottom: 5px;
     counter-increment: leaderboard-counter;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 li::before {
     content: counter(leaderboard-counter) ". ";
     color: #538d4e;
+    margin-right: 5px;
 }
 
 @media (max-width: 600px) {
