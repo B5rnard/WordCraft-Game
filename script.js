@@ -22,7 +22,7 @@ class WordGame {
         this.personalLeaderboard = JSON.parse(localStorage.getItem('personalLeaderboard')) || [];
         this.updatePersonalLeaderboard();
         this.updateDailyLeaderboard();
-        this.startGame();
+        this.showIntroPopup();
     }
 
     initDOMElements() {
@@ -37,6 +37,8 @@ class WordGame {
         this.highScoreElement = document.getElementById('highScore');
         this.personalScoresList = document.getElementById('personalScores');
         this.dailyScoresList = document.getElementById('dailyScores');
+        this.introPopup = document.getElementById('intro-popup');
+        this.startGameButton = document.getElementById('start-game-btn');
     }
 
     initGameState() {
@@ -47,6 +49,7 @@ class WordGame {
         this.nineLetterWord = '';
         this.timerInterval = null;
         this.highScore = parseInt(localStorage.getItem('highScore')) || 0;
+        this.gameStarted = false;
 
         this.nineLetterWords = [
             'aardvarks', 'abandoned', 'abilities', 'absurdity', 'academic', 'activate',
@@ -87,9 +90,20 @@ class WordGame {
             }
         });
         this.playAgainButton.addEventListener('click', () => this.resetGame());
+        this.startGameButton.addEventListener('click', () => this.startGame());
+    }
+
+    showIntroPopup() {
+        this.introPopup.style.display = 'flex';
+    }
+
+    hideIntroPopup() {
+        this.introPopup.style.display = 'none';
     }
 
     startGame() {
+        this.hideIntroPopup();
+        this.gameStarted = true;
         this.selectNineLetterWord();
         this.generateLetters();
         this.startTimer();
@@ -104,7 +118,7 @@ class WordGame {
         this.guessedWordsContainer.innerHTML = '';
         this.messageElement.textContent = '';
         this.timerElement.classList.remove('timer-warning', 'timer-critical');
-        this.startGame();
+        this.showIntroPopup();
     }
 
     selectNineLetterWord() {
@@ -160,6 +174,8 @@ class WordGame {
     }
 
     async submitWord() {
+        if (!this.gameStarted) return;
+        
         const rawInput = this.wordInput.value.trim().toLowerCase();
         const word = this.sanitizeInput(rawInput);
 
