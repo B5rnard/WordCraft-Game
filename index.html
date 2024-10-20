@@ -53,8 +53,8 @@
     <div id="intro-popup" class="popup">
         <div class="popup-content">
             <h2>Welcome to WordCraft!</h2>
-            <p>Craft words from the given letters and race against time. Here's how to play:</p>
-            <ol>
+            <p class="intro-text">Craft words from the given letters and race against time. Here's how to play:</p>
+            <ol class="instructions">
                 <li>You'll see 9 letter tiles on the screen.</li>
                 <li>Form words using these letters. Each letter can be used only once per word.</li>
                 <li>Words must be at least 2 letters long.</li>
@@ -63,12 +63,14 @@
                 <li>Every correct word adds its length in seconds to your timer!</li>
                 <li>Try to find the 9-letter word for maximum points!</li>
             </ol>
-            <p>Example: Given letters A, B, C, D, E, F, G, H, I</p>
-            <ul>
-                <li>"BAD" - 3 points, adds 3 seconds</li>
-                <li>"CHIEF" - 15 points, adds 5 seconds</li>
-                <li>"ACHIEVED" (9-letter word) - 49 points, adds 9 seconds</li>
-            </ul>
+            <div class="example-section">
+                <p>Example: Given letters A, B, C, D, E, F, G, H, I</p>
+                <ul>
+                    <li>"BAD" - 3 points, adds 3 seconds</li>
+                    <li>"CHIEF" - 15 points, adds 5 seconds</li>
+                    <li>"ACHIEVED" (9-letter word) - 49 points, adds 9 seconds</li>
+                </ul>
+            </div>
             <button id="start-game-btn" class="start-game-button">Start Game</button>
         </div>
     </div>
