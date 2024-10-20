@@ -251,7 +251,7 @@ li::before {
 }
 
 .intro-text {
-    font-size: 14px;
+    font-size: 12px;
     margin-bottom: 20px;
 }
 
@@ -261,7 +261,7 @@ li::before {
 }
 
 .instructions li {
-    margin-bottom: 10px;
+    margin-bottom: 12px;
     display: list-item;
     justify-content: flex-start;
 }
