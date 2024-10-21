@@ -1,4 +1,5 @@
-/ Firebase configuration
+// Firebase configuration
+// TODO: Move this to a secure backend service in production
 const firebaseConfig = {
     apiKey: "AIzaSyCIRwazCpmXp5el5pcyrVjoYb962fZpc7Y",
     authDomain: "wordcraft-17de9.firebaseapp.com",
@@ -147,8 +148,13 @@ class WordGame {
     }
 
     async checkNicknameAvailability(nickname) {
-        const snapshot = await db.ref('users').orderByChild('nickname').equalTo(nickname).once('value');
-        return !snapshot.exists();
+        try {
+            const snapshot = await db.ref('users').orderByChild('nickname').equalTo(nickname).once('value');
+            return !snapshot.exists();
+        } catch (error) {
+            console.error("Error checking nickname availability:", error);
+            return false;
+        }
     }
 
     startGame() {
@@ -277,7 +283,8 @@ class WordGame {
         try {
             const response = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${encodeURIComponent(word)}`);
             return response.ok;
-        } catch {
+        } catch (error) {
+            console.error("Error validating word:", error);
             return false;
         }
     }
@@ -341,57 +348,4 @@ class WordGame {
 
     saveScoreToFirebase(score) {
         const today = new Date().toISOString().split('T')[0];
-        const newScoreRef = db.ref(`scores/${today}`).push();
-        newScoreRef.set({
-            nickname: this.nickname,
-            email: this.email,
-            score: 
-
-            saveScoreToFirebase(score) {
-        const today = new Date().toISOString().split('T')[0];
-        const newScoreRef = db.ref(`scores/${today}`).push();
-        newScoreRef.set({
-            nickname: this.nickname,
-            email: this.email,
-            score: score,
-            timestamp: firebase.database.ServerValue.TIMESTAMP
-        });
-
-        // Save user info to Firebase
-        db.ref(`users/${this.nickname}`).set({
-            nickname: this.nickname,
-            email: this.email
-        });
-    }
-
-    updatePersonalLeaderboard() {
-        this.personalLeaderboard.push({nickname: this.nickname, score: this.score});
-        this.personalLeaderboard.sort((a, b) => b.score - a.score);
-        this.personalLeaderboard = this.personalLeaderboard.slice(0, 5); // Keep top 5 scores
-        localStorage.setItem('personalLeaderboard', JSON.stringify(this.personalLeaderboard));
-    
-        this.personalScoresList.innerHTML = this.personalLeaderboard
-            .map((entry, index) => `<li>${entry.nickname}: ${entry.score}</li>`)
-            .join('');
-    }
-
-    updateDailyLeaderboard() {
-        const today = new Date().toISOString().split('T')[0];
-        db.ref(`scores/${today}`).orderByChild('score').limitToLast(5).once('value', (snapshot) => {
-            const scores = [];
-            snapshot.forEach((childSnapshot) => {
-                scores.unshift({
-                    nickname: childSnapshot.val().nickname,
-                    score: childSnapshot.val().score
-                });
-            });
-            
-            this.dailyScoresList.innerHTML = scores
-                .map((entry, index) => `<li>${entry.nickname}: ${entry.score}</li>`)
-                .join('');
-        });
-    }
-}
-
-// Initialize the game
-const game = new WordGame();
+        const newScoreRef
