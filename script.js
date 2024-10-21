@@ -1,4 +1,4 @@
-// Firebase configuration
+/ Firebase configuration
 const firebaseConfig = {
     apiKey: "AIzaSyCIRwazCpmXp5el5pcyrVjoYb962fZpc7Y",
     authDomain: "wordcraft-17de9.firebaseapp.com",
@@ -122,24 +122,28 @@ class WordGame {
     }
 
     validateAndStartGame() {
-        this.nickname = this.nicknameInput.value.trim();
-        this.email = this.emailInput.value.trim();
+        if (!this.userInfo) {
+            this.nickname = this.nicknameInput.value.trim();
+            this.email = this.emailInput.value.trim();
 
-        if (!this.nickname) {
-            alert('Please enter a nickname to start the game.');
-            return;
-        }
-
-        // Check if the nickname is already taken
-        this.checkNicknameAvailability(this.nickname).then(isAvailable => {
-            if (isAvailable) {
-                this.userInfo = { nickname: this.nickname, email: this.email };
-                localStorage.setItem('userInfo', JSON.stringify(this.userInfo));
-                this.startGame();
-            } else {
-                alert('This nickname is already taken. Please choose a different one.');
+            if (!this.nickname) {
+                alert('Please enter a nickname to start the game.');
+                return;
             }
-        });
+
+            // Check if the nickname is already taken
+            this.checkNicknameAvailability(this.nickname).then(isAvailable => {
+                if (isAvailable) {
+                    this.userInfo = { nickname: this.nickname, email: this.email };
+                    localStorage.setItem('userInfo', JSON.stringify(this.userInfo));
+                    this.startGame();
+                } else {
+                    alert('This nickname is already taken. Please choose a different one.');
+                }
+            });
+        } else {
+            this.startGame();
+        }
     }
 
     async checkNicknameAvailability(nickname) {
@@ -166,7 +170,7 @@ class WordGame {
         this.guessedWordsContainer.innerHTML = '';
         this.messageElement.textContent = '';
         this.timerElement.classList.remove('timer-warning', 'timer-critical');
-        this.checkReturningPlayer();
+        this.startGame();
     }
 
     selectNineLetterWord() {
@@ -254,6 +258,7 @@ class WordGame {
                 this.updateGuessedWords(word);
                 this.wordInput.value = '';
                 this.addTime(word.length);
+                this.showMessage(`"${word.toUpperCase()}" is correct! +${wordScore} points.`);
             } else {
                 this.showMessage(`"${word.toUpperCase()}" is not an acceptable word.`);
                 this.wordInput.value = '';
@@ -310,11 +315,17 @@ class WordGame {
         this.timerElement.textContent = this.timeLeft;
     }
 
+    showMessage(message) {
+        this.messageElement.textContent = message;
+    }
+
     endGame() {
         clearInterval(this.timerInterval);
         this.wordInput.disabled = true;
         if (!this.submittedWords.has(this.nineLetterWord)) {
-            this.showMessage(`The nine-letter word was "${this.nineLetterWord.toUpperCase()}".`);
+            this.showMessage(`Game over! The nine-letter word was "${this.nineLetterWord.toUpperCase()}".`);
+        } else {
+            this.showMessage('Game over! Great job finding the nine-letter word!');
         }
         if (this.score > this.highScore) {
             this.highScore = this.score;
@@ -329,6 +340,14 @@ class WordGame {
     }
 
     saveScoreToFirebase(score) {
+        const today = new Date().toISOString().split('T')[0];
+        const newScoreRef = db.ref(`scores/${today}`).push();
+        newScoreRef.set({
+            nickname: this.nickname,
+            email: this.email,
+            score: 
+
+            saveScoreToFirebase(score) {
         const today = new Date().toISOString().split('T')[0];
         const newScoreRef = db.ref(`scores/${today}`).push();
         newScoreRef.set({
@@ -352,4 +371,27 @@ class WordGame {
         localStorage.setItem('personalLeaderboard', JSON.stringify(this.personalLeaderboard));
     
         this.personalScoresList.innerHTML = this.personalLeaderboard
-          .map((entry, index) => `
+            .map((entry, index) => `<li>${entry.nickname}: ${entry.score}</li>`)
+            .join('');
+    }
+
+    updateDailyLeaderboard() {
+        const today = new Date().toISOString().split('T')[0];
+        db.ref(`scores/${today}`).orderByChild('score').limitToLast(5).once('value', (snapshot) => {
+            const scores = [];
+            snapshot.forEach((childSnapshot) => {
+                scores.unshift({
+                    nickname: childSnapshot.val().nickname,
+                    score: childSnapshot.val().score
+                });
+            });
+            
+            this.dailyScoresList.innerHTML = scores
+                .map((entry, index) => `<li>${entry.nickname}: ${entry.score}</li>`)
+                .join('');
+        });
+    }
+}
+
+// Initialize the game
+const game = new WordGame();
