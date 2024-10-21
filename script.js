@@ -22,7 +22,7 @@ class WordGame {
         this.personalLeaderboard = JSON.parse(localStorage.getItem('personalLeaderboard')) || [];
         this.updatePersonalLeaderboard();
         this.updateDailyLeaderboard();
-        this.showIntroPopup();
+        this.checkReturningPlayer();
     }
 
     initDOMElements() {
@@ -41,6 +41,9 @@ class WordGame {
         this.startGameButton = document.getElementById('start-game-btn');
         this.nicknameInput = document.getElementById('nicknameInput');
         this.emailInput = document.getElementById('emailInput');
+        this.returningPlayerPopup = document.getElementById('returning-player-popup');
+        this.returningPlayerName = document.getElementById('returning-player-name');
+        this.startGameButtonReturning = document.getElementById('start-game-btn-returning');
     }
 
     initGameState() {
@@ -52,6 +55,7 @@ class WordGame {
         this.timerInterval = null;
         this.highScore = parseInt(localStorage.getItem('highScore')) || 0;
         this.gameStarted = false;
+        this.userInfo = JSON.parse(localStorage.getItem('userInfo')) || null;
         this.nickname = '';
         this.email = '';
 
@@ -95,6 +99,18 @@ class WordGame {
         });
         this.playAgainButton.addEventListener('click', () => this.resetGame());
         this.startGameButton.addEventListener('click', () => this.validateAndStartGame());
+        this.startGameButtonReturning.addEventListener('click', () => this.startGame());
+    }
+
+    checkReturningPlayer() {
+        if (this.userInfo) {
+            this.nickname = this.userInfo.nickname;
+            this.email = this.userInfo.email;
+            this.returningPlayerName.textContent = this.nickname;
+            this.returningPlayerPopup.style.display = 'flex';
+        } else {
+            this.showIntroPopup();
+        }
     }
 
     showIntroPopup() {
@@ -114,12 +130,27 @@ class WordGame {
             return;
         }
 
-        this.startGame();
+        // Check if the nickname is already taken
+        this.checkNicknameAvailability(this.nickname).then(isAvailable => {
+            if (isAvailable) {
+                this.userInfo = { nickname: this.nickname, email: this.email };
+                localStorage.setItem('userInfo', JSON.stringify(this.userInfo));
+                this.startGame();
+            } else {
+                alert('This nickname is already taken. Please choose a different one.');
+            }
+        });
+    }
+
+    async checkNicknameAvailability(nickname) {
+        const snapshot = await db.ref('users').orderByChild('nickname').equalTo(nickname).once('value');
+        return !snapshot.exists();
     }
 
     startGame() {
         console.log('Starting game...');
         this.hideIntroPopup();
+        this.returningPlayerPopup.style.display = 'none';
         this.gameStarted = true;
         this.selectNineLetterWord();
         this.generateLetters();
@@ -135,7 +166,7 @@ class WordGame {
         this.guessedWordsContainer.innerHTML = '';
         this.messageElement.textContent = '';
         this.timerElement.classList.remove('timer-warning', 'timer-critical');
-        this.showIntroPopup();
+        this.checkReturningPlayer();
     }
 
     selectNineLetterWord() {
@@ -306,6 +337,12 @@ class WordGame {
             score: score,
             timestamp: firebase.database.ServerValue.TIMESTAMP
         });
+
+        // Save user info to Firebase
+        db.ref(`users/${this.nickname}`).set({
+            nickname: this.nickname,
+            email: this.email
+        });
     }
 
     updatePersonalLeaderboard() {
@@ -315,33 +352,4 @@ class WordGame {
         localStorage.setItem('personalLeaderboard', JSON.stringify(this.personalLeaderboard));
     
         this.personalScoresList.innerHTML = this.personalLeaderboard
-          .map((entry, index) => `<li>${entry.nickname}: ${entry.score}</li>`)
-          .join('');
-    }
-
-    updateDailyLeaderboard() {
-        const today = new Date().toISOString().split('T')[0];
-        db.ref(`scores/${today}`)
-            .orderByChild('score')
-            .limitToLast(5)
-            .on('value', (snapshot) => {
-                const scores = [];
-                snapshot.forEach((childSnapshot) => {
-                    const data = childSnapshot.val();
-                    scores.push({nickname: data.nickname, score: data.score});
-                });
-                scores.sort((a, b) => b.score - a.score);
-                this.dailyScoresList.innerHTML = scores
-                    .map((entry, index) => `<li>${entry.nickname}: ${entry.score}</li>`)
-                    .join('');
-            });
-    }
-
-    showMessage(message) {
-        this.messageElement.textContent = message;
-    }
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-    new WordGame();
-});
+          .map((entry, index) => `
