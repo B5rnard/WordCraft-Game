@@ -218,7 +218,6 @@ li::before {
     color: #ff4136;
 }
 
-/* Updated styles for the intro popup */
 .popup {
     position: fixed;
     top: 0;
@@ -244,14 +243,14 @@ li::before {
 }
 
 .popup-content h2 {
-    color: #538d4e;
+    color: #7cfc00;
     font-size: 32px;
     margin-top: 0;
     margin-bottom: 20px;
 }
 
 .intro-text {
-    font-size: 12px;
+    font-size: 18px;
     margin-bottom: 20px;
 }
 
@@ -261,7 +260,7 @@ li::before {
 }
 
 .instructions li {
-    margin-bottom: 12px;
+    margin-bottom: 10px;
     display: list-item;
     justify-content: flex-start;
 }
@@ -296,4 +295,21 @@ li::before {
 
 .start-game-button:hover {
     background-color: #62a45d;
+}
+
+.popup-content input[type="text"],
+.popup-content input[type="email"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #3a3a3c;
+    background-color: #2a2a2d;
+    color: #ffffff;
+    border-radius: 4px;
+}
+
+.popup-content input[type="text"]:focus,
+.popup-content input[type="email"]:focus {
+    outline: none;
+    border-color: #538d4e;
 }
