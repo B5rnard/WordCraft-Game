@@ -39,6 +39,8 @@ class WordGame {
         this.dailyScoresList = document.getElementById('dailyScores');
         this.introPopup = document.getElementById('intro-popup');
         this.startGameButton = document.getElementById('start-game-btn');
+        this.nicknameInput = document.getElementById('nicknameInput');
+        this.emailInput = document.getElementById('emailInput');
     }
 
     initGameState() {
@@ -50,6 +52,8 @@ class WordGame {
         this.timerInterval = null;
         this.highScore = parseInt(localStorage.getItem('highScore')) || 0;
         this.gameStarted = false;
+        this.nickname = '';
+        this.email = '';
 
         this.nineLetterWords = [
             'aardvarks', 'abandoned', 'abilities', 'absurdity', 'academic', 'activate',
@@ -90,7 +94,7 @@ class WordGame {
             }
         });
         this.playAgainButton.addEventListener('click', () => this.resetGame());
-        this.startGameButton.addEventListener('click', () => this.startGame());
+        this.startGameButton.addEventListener('click', () => this.validateAndStartGame());
     }
 
     showIntroPopup() {
@@ -99,6 +103,18 @@ class WordGame {
 
     hideIntroPopup() {
         this.introPopup.style.display = 'none';
+    }
+
+    validateAndStartGame() {
+        this.nickname = this.nicknameInput.value.trim();
+        this.email = this.emailInput.value.trim();
+
+        if (!this.nickname) {
+            alert('Please enter a nickname to start the game.');
+            return;
+        }
+
+        this.startGame();
     }
 
     startGame() {
@@ -282,22 +298,24 @@ class WordGame {
     }
 
     saveScoreToFirebase(score) {
-        const today = new Date().toISOString().split('T')[0]; // Get today's date
+        const today = new Date().toISOString().split('T')[0];
         const newScoreRef = db.ref(`scores/${today}`).push();
         newScoreRef.set({
+            nickname: this.nickname,
+            email: this.email,
             score: score,
             timestamp: firebase.database.ServerValue.TIMESTAMP
         });
     }
 
     updatePersonalLeaderboard() {
-        this.personalLeaderboard.push(this.score);
-        this.personalLeaderboard.sort((a, b) => b - a);
+        this.personalLeaderboard.push({nickname: this.nickname, score: this.score});
+        this.personalLeaderboard.sort((a, b) => b.score - a.score);
         this.personalLeaderboard = this.personalLeaderboard.slice(0, 5); // Keep top 5 scores
         localStorage.setItem('personalLeaderboard', JSON.stringify(this.personalLeaderboard));
     
         this.personalScoresList.innerHTML = this.personalLeaderboard
-          .map((score, index) => `<li>${score}</li>`)
+          .map((entry, index) => `<li>${entry.nickname}: ${entry.score}</li>`)
           .join('');
     }
 
@@ -309,11 +327,12 @@ class WordGame {
             .on('value', (snapshot) => {
                 const scores = [];
                 snapshot.forEach((childSnapshot) => {
-                    scores.push(childSnapshot.val().score);
+                    const data = childSnapshot.val();
+                    scores.push({nickname: data.nickname, score: data.score});
                 });
-                scores.sort((a, b) => b - a); // Sort scores in descending order
+                scores.sort((a, b) => b.score - a.score);
                 this.dailyScoresList.innerHTML = scores
-                    .map((score, index) => `<li>${score}</li>`)
+                    .map((entry, index) => `<li>${entry.nickname}: ${entry.score}</li>`)
                     .join('');
             });
     }
