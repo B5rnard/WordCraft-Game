@@ -15,7 +15,7 @@
             Each word you guess adds its number of letters back to the clock in seconds!</p>
         </header>
 
-        <main class="game-container" role="main">
+        <main class="game-container">
             <div class="game-area">
                 <div id="letters" class="letters-container"></div>
 
@@ -43,6 +43,7 @@
                 <h2>Your Top Scores</h2>
                 <ol id="personalScores"></ol>
             </div>
+
             <div class="daily-leaderboard">
                 <h2>Global Top Scores Today</h2>
                 <ol id="dailyScores"></ol>
@@ -54,9 +55,8 @@
         <div class="popup-content">
             <h2>Welcome to WordCraft!</h2>
             <p class="intro-text">Before we begin, please enter your nickname:</p>
-            <input type="text" id="nicknameInput" placeholder="Enter your nickname" required>
-            <p class="intro-text">Email (optional):</p>
-            <input type="email" id="emailInput" placeholder="Enter your email (optional)">
+            <input type="text" id="nicknameInput" placeholder="Your Nickname">
+            <input type="email" id="emailInput" placeholder="Email (optional)">
             <p class="intro-text">Craft words from the given letters and race against time. Here's how to play:</p>
             <ol class="instructions">
                 <li>You'll see 9 letter tiles on the screen.</li>
