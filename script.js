@@ -1,13 +1,13 @@
 // Firebase configuration
 const firebaseConfig = {
-    apiKey: "YOUR_API_KEY",
-    authDomain: "YOUR_AUTH_DOMAIN",
-    databaseURL: "YOUR_DATABASE_URL",
-    projectId: "YOUR_PROJECT_ID",
-    storageBucket: "YOUR_STORAGE_BUCKET",
-    messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-    appId: "YOUR_APP_ID",
-    measurementId: "YOUR_MEASUREMENT_ID"
+    apiKey: "AIzaSyCIRwazCpmXp5el5pcyrVjoYb962fZpc7Y",
+    authDomain: "wordcraft-17de9.firebaseapp.com",
+    databaseURL: "https://wordcraft-17de9-default-rtdb.firebaseio.com",
+    projectId: "wordcraft-17de9",
+    storageBucket: "wordcraft-17de9.appspot.com",
+    messagingSenderId: "411593162986",
+    appId: "1:411593162986:web:481c9e7f7bf85a58e9d793",
+    measurementId: "G-8GQX7TV5NE"
 };
 
 // Initialize Firebase
