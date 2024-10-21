@@ -23,6 +23,7 @@ class WordGame {
         this.updatePersonalLeaderboard();
         this.updateDailyLeaderboard();
         this.checkReturningPlayer();
+        this.startGameButton.addEventListener('click', () => this.validateAndStartGame());
     }
 
     initDOMElements() {
