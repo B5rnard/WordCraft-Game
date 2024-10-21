@@ -139,12 +139,20 @@ class WordGame {
             } else {
                 alert('This nickname is already taken. Please choose a different one.');
             }
+        }).catch(error => {
+            console.error('Error checking nickname availability:', error);
+            alert('An error occurred. Please try again.');
         });
     }
 
     async checkNicknameAvailability(nickname) {
-        const snapshot = await db.ref('users').orderByChild('nickname').equalTo(nickname).once('value');
-        return !snapshot.exists();
+        try {
+            const snapshot = await db.ref('users').orderByChild('nickname').equalTo(nickname).once('value');
+            return !snapshot.exists();
+        } catch (error) {
+            console.error('Error checking nickname:', error);
+            throw error;
+        }
     }
 
     startGame() {
