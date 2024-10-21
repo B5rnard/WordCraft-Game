@@ -168,17 +168,15 @@ body {
     text-align: center;
 }
 
-ol {
+.personal-leaderboard ol, .daily-leaderboard ol {
     padding-left: 20px;
     list-style-type: decimal;
     color: #d7dadc;
     margin: 0;
 }
 
-li {
+.personal-leaderboard li, .daily-leaderboard li {
     margin-bottom: 5px;
-    display: flex;
-    align-items: center;
 }
 
 @media (max-width: 600px) {
@@ -252,8 +250,6 @@ li {
 
 .instructions li {
     margin-bottom: 10px;
-    display: list-item;
-    justify-content: flex-start;
 }
 
 .example-section {
