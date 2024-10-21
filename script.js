@@ -23,7 +23,6 @@ class WordGame {
         this.updatePersonalLeaderboard();
         this.updateDailyLeaderboard();
         this.checkReturningPlayer();
-        this.startGameButton.addEventListener('click', () => this.validateAndStartGame());
     }
 
     initDOMElements() {
@@ -140,20 +139,12 @@ class WordGame {
             } else {
                 alert('This nickname is already taken. Please choose a different one.');
             }
-        }).catch(error => {
-            console.error('Error checking nickname availability:', error);
-            alert('An error occurred. Please try again.');
         });
     }
 
     async checkNicknameAvailability(nickname) {
-        try {
-            const snapshot = await db.ref('users').orderByChild('nickname').equalTo(nickname).once('value');
-            return !snapshot.exists();
-        } catch (error) {
-            console.error('Error checking nickname:', error);
-            throw error;
-        }
+        const snapshot = await db.ref('users').orderByChild('nickname').equalTo(nickname).once('value');
+        return !snapshot.exists();
     }
 
     startGame() {
