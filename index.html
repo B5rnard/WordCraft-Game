@@ -4,15 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WordCraft</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="app-container">
         <header class="app-header">
             <h1>WordCraft</h1>
-            <p>Form words from the given letters before time runs out<br>
-            Each word you guess adds its number of letters back to the clock in seconds!</p>
+            <p>Form words from the given letters before time runs out<br>Each word you guess adds its number of letters back to the clock in seconds!</p>
         </header>
 
         <main class="game-container">
@@ -20,7 +18,7 @@
                 <div id="letters" class="letters-container"></div>
 
                 <div class="input-container">
-                    <input type="text" id="wordInput" placeholder="Enter word">
+                    <input type="text" id="wordInput" placeholder="Enter your word">
                     <button id="submitButton">Submit</button>
                 </div>
 
@@ -34,60 +32,26 @@
 
                 <div id="guessedWords" class="guessed-words-container"></div>
 
-                <button id="playAgainButton" class="play-again-button" style="display: none;">Play Again</button>
+                <button id="playAgainButton" class="play-again-button">Play Again</button>
+            </div>
+
+            <div class="leaderboards-container">
+                <div class="personal-leaderboard">
+                    <h2>Your Top Scores</h2>
+                    <ol id="personalScores"></ol>
+                </div>
+                
+                <div class="daily-leaderboard">
+                    <h2>Global Top Scores Today</h2>
+                    <ol id="dailyScores"></ol>
+                </div>
             </div>
         </main>
-
-        <div class="leaderboards-container">
-            <div class="personal-leaderboard">
-                <h2>Your Top Scores</h2>
-                <ol id="personalScores"></ol>
-            </div>
-
-            <div class="daily-leaderboard">
-                <h2>Global Top Scores Today</h2>
-                <ol id="dailyScores"></ol>
-            </div>
-        </div>
     </div>
 
-    <div id="intro-popup" class="popup">
-        <div class="popup-content">
-            <h2>Welcome to WordCraft!</h2>
-            <p class="intro-text">Before we begin, please enter your nickname:</p>
-            <input type="text" id="nicknameInput" placeholder="Your Nickname">
-            <input type="email" id="emailInput" placeholder="Email (optional)">
-            <p class="intro-text">Craft words from the given letters and race against time. Here's how to play:</p>
-            <ol class="instructions">
-                <li>You'll see 9 letter tiles on the screen.</li>
-                <li>Form words using these letters. Each letter can be used only once per word.</li>
-                <li>Words must be at least 2 letters long.</li>
-                <li>Submit your word by typing it and pressing Enter or clicking the Submit button.</li>
-                <li>Each valid word earns you points: 1 point for 2-letter words, and (length * (length - 2)) for longer words.</li>
-                <li>Every correct word adds its length in seconds to your timer!</li>
-                <li>Try to find the 9-letter word for maximum points!</li>
-            </ol>
-            <div class="example-section">
-                <p>Example: Given letters A, B, C, D, E, F, G, H, I</p>
-                <ul>
-                    <li>"BAD" - 3 points, adds 3 seconds</li>
-                    <li>"CHIEF" - 15 points, adds 5 seconds</li>
-                    <li>"ACHIEVED" (9-letter word) - 49 points, adds 9 seconds</li>
-                </ul>
-            </div>
-            <button id="start-game-btn" class="start-game-button">Start Game</button>
-        </div>
-    </div>
-
-    <div id="returning-player-popup" class="popup" style="display: none;">
-        <div class="popup-content">
-            <h2>Welcome back, <span id="returning-player-name"></span>!</h2>
-            <button id="start-game-btn-returning" class="start-game-button">Start Game</button>
-        </div>
-    </div>
-
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
