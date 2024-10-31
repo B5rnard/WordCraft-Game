@@ -1,4 +1,4 @@
-/* Reset and base styles */
+/* Base styles and resets */
 html, body {
     margin: 0;
     padding: 0;
@@ -50,13 +50,21 @@ body {
     color: #555555;
 }
 
-/* Game area */
+/* Game container and core elements */
 .game-container {
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 2rem;
+}
+
+.game-area {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
 }
 
 /* Letters grid */
@@ -112,14 +120,22 @@ body {
     white-space: nowrap;
 }
 
-/* Message area */
+/* Message container */
 .message-container {
+    background-color: #ffffff;
+    border: 2px solid #d9d9d9;
+    padding: 0.75rem;
+    border-radius: 8px;
     text-align: center;
-    margin: 1rem 0;
+    margin: 1rem auto;
+    font-size: 1rem;
+    width: 100%;
+    max-width: 360px;
     min-height: 1.5rem;
+    box-sizing: border-box;
 }
 
-/* Game stats */
+/* Status container */
 .status-container {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -127,11 +143,30 @@ body {
     width: 100%;
     max-width: 360px;
     text-align: center;
-    margin: 1rem 0;
+    margin: 1rem auto;
 }
 
 .status-item {
     font-size: 1rem;
+}
+
+/* Guessed words */
+.guessed-words-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    justify-content: center;
+    width: 100%;
+    max-width: 360px;
+    margin: 1rem auto;
+}
+
+.guessed-word {
+    background-color: #e6e6e6;
+    color: #333333;
+    padding: 0.5rem 0.75rem;
+    border-radius: 4px;
+    font-size: 0.875rem;
 }
 
 /* Play again button */
@@ -143,21 +178,23 @@ body {
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    margin: 1rem 0;
+    margin: 1rem auto;
+    display: block;
+    width: auto;
 }
 
-/* Leaderboard sections */
+/* Leaderboards */
 .leaderboards-container {
     width: 100%;
     max-width: 360px;
-    margin-top: 2rem;
     display: flex;
-    flex-direction: column;
     gap: 1rem;
+    margin: 2rem auto 0;
 }
 
 .personal-leaderboard,
 .daily-leaderboard {
+    flex: 1;
     background-color: #ffffff;
     border: 2px solid #d9d9d9;
     border-radius: 8px;
@@ -166,19 +203,57 @@ body {
 
 .personal-leaderboard h2,
 .daily-leaderboard h2 {
-    font-size: 1.25rem;
+    color: #333333;
+    font-size: 1.125rem;
     margin: 0 0 1rem 0;
     text-align: center;
 }
 
-/* Mobile optimizations */
+/* Leaderboard lists */
+ol {
+    padding-left: 0;
+    list-style-type: none;
+    color: #666666;
+    margin: 0;
+    counter-reset: leaderboard-counter;
+}
+
+li {
+    margin-bottom: 0.5rem;
+    counter-increment: leaderboard-counter;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+li::before {
+    content: counter(leaderboard-counter) ". ";
+    color: #4CAF50;
+    margin-right: 0.5rem;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .app-container {
+        padding: 1.5rem 1rem;
+    }
+
+    .app-header h1 {
+        font-size: 2rem;
+    }
+
+    .letter-tile {
+        font-size: 1.75rem;
+    }
+}
+
 @media (max-width: 480px) {
     .app-container {
         padding: 1rem;
     }
 
     .app-header h1 {
-        font-size: 2rem;
+        font-size: 1.75rem;
     }
 
     .letter-tile {
@@ -192,9 +267,17 @@ body {
     #submitButton {
         width: 100%;
     }
+
+    .leaderboards-container {
+        flex-direction: column;
+    }
+
+    .status-item {
+        font-size: 0.875rem;
+    }
 }
 
-/* Animation states */
+/* Animations and states */
 @keyframes flash {
     0% { background-color: #e6e6e6; }
     50% { background-color: #4CAF50; }
@@ -211,4 +294,21 @@ body {
 
 .timer-critical {
     color: #FF4136;
+}
+
+/* Button hover states */
+#submitButton:hover,
+.play-again-button:hover {
+    background-color: #45a049;
+}
+
+/* Input focus state */
+#wordInput:focus {
+    outline: none;
+    border-color: #4CAF50;
+}
+
+/* Ensure proper sizing for all elements */
+* {
+    box-sizing: border-box;
 }
