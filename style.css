@@ -3,9 +3,16 @@ html, body {
     padding: 0;
     font-family: 'Inter', sans-serif;
     background-color: #ffffff;
-    color: #333333;
-    min-height: 100%;
-    overflow-y: auto;
+    color: #1a2b3c;
+    min-height: 100vh;
+    height: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: linear-gradient(to bottom, #1e3a8a 0%, #1e3a8a 48px, #ffffff 48px, #ffffff 100%);
 }
 
 .app-container {
@@ -13,29 +20,29 @@ html, body {
     flex-direction: column;
     align-items: center;
     width: 100%;
+    max-width: 360px;
     padding: 20px;
     box-sizing: border-box;
-    background-color: #ffffff;
+    margin: 0 auto;
 }
 
 .app-header {
     text-align: center;
     margin-bottom: 30px;
     width: 100%;
-    max-width: 360px;
 }
 
 .app-header h1 {
     font-size: 48px;
     font-weight: 800;
     margin: 0 0 20px 0;
-    color: #333333;
+    color: #1a2b3c;
 }
 
 .app-header p {
     margin: 8px 0;
     font-size: 16px;
-    color: #333333;
+    color: #1a2b3c;
     padding: 15px 20px;
     background-color: #f8f9fa;
     border-radius: 12px;
@@ -43,32 +50,20 @@ html, body {
     line-height: 1.5;
 }
 
-.game-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    max-width: 360px;
-    margin-bottom: 20px;
-}
-
 .game-area {
     width: 100%;
-    max-width: 360px;
-    margin: 0 auto;
     display: flex;
     flex-direction: column;
     align-items: center;
+    gap: 16px;
 }
 
 .letters-container {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
+    gap: 12px;
     width: 100%;
-    max-width: 360px;
-    padding: 15px 20px;
-    margin: 10px 0;
+    padding: 20px;
     background-color: #f8f9fa;
     border-radius: 12px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
@@ -77,10 +72,8 @@ html, body {
 
 .letter-tile {
     aspect-ratio: 1;
-    width: 100%;
-    max-width: 100px;
     background-color: #ffffff;
-    color: #333333;
+    color: #1a2b3c;
     font-size: 32px;
     font-weight: 700;
     display: flex;
@@ -92,18 +85,11 @@ html, body {
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.letter-tile:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-}
-
 .input-container {
     display: flex;
-    gap: 10px;
+    gap: 8px;
     width: 100%;
-    max-width: 360px;
-    padding: 15px 20px;
-    margin: 10px 0;
+    padding: 16px;
     background-color: #f8f9fa;
     border-radius: 12px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
@@ -113,59 +99,44 @@ html, body {
 #wordInput {
     flex: 1;
     padding: 12px;
-    font-size: 18px;
-    background-color: #ffffff;
-    color: #333333;
-    border: 2px solid #e1e4e8;
-    border-radius: 6px;
+    font-size: 16px;
+    border: 2px solid #e5e7eb;
+    border-radius: 8px;
     outline: none;
-    min-width: 0;
-}
-
-#wordInput:focus {
-    border-color: #4CAF50;
-    box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
+    background: #ffffff;
 }
 
 #submitButton {
     padding: 12px 24px;
-    font-size: 18px;
-    background-color: #4CAF50;
+    font-size: 16px;
+    font-weight: 600;
     color: #ffffff;
+    background-color: #4CAF50;
     border: none;
-    border-radius: 6px;
+    border-radius: 8px;
     cursor: pointer;
-    white-space: nowrap;
-    font-weight: 500;
-    transition: background-color 0.2s ease;
-}
-
-#submitButton:hover {
-    background-color: #45a049;
 }
 
 .message-container {
     width: 100%;
-    max-width: 360px;
-    padding: 15px 20px;
-    margin: 10px 0;
+    padding: 16px;
     background-color: #f8f9fa;
     border-radius: 12px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
     text-align: center;
     font-size: 16px;
-    font-weight: 500;
-    color: #333333;
     box-sizing: border-box;
+    min-height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .status-container {
     display: flex;
     justify-content: space-between;
     width: 100%;
-    max-width: 360px;
-    padding: 15px 20px;
-    margin: 10px 0;
+    padding: 16px;
     background-color: #f8f9fa;
     border-radius: 12px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
@@ -174,58 +145,51 @@ html, body {
 
 .status-item {
     text-align: center;
-    font-size: 18px;
-    color: #333333;
+    font-size: 16px;
+    color: #1a2b3c;
+    font-weight: 500;
 }
 
 .guessed-words-container {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
-    justify-content: center;
+    gap: 8px;
     width: 100%;
-    max-width: 360px;
-    padding: 15px 20px;
-    margin: 10px 0;
+    padding: 16px;
     background-color: #f8f9fa;
     border-radius: 12px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
     box-sizing: border-box;
+    justify-content: center;
 }
 
 .guessed-word {
     background-color: #ffffff;
-    color: #333333;
+    color: #1a2b3c;
     padding: 8px 12px;
     border-radius: 6px;
-    font-size: 16px;
+    font-size: 14px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 .play-again-button {
     padding: 12px 24px;
-    font-size: 18px;
-    background-color: #4CAF50;
+    font-size: 16px;
+    font-weight: 600;
     color: #ffffff;
+    background-color: #4CAF50;
     border: none;
-    border-radius: 6px;
+    border-radius: 8px;
     cursor: pointer;
-    margin: 20px 0;
-    font-weight: 500;
-    transition: background-color 0.2s ease;
-}
-
-.play-again-button:hover {
-    background-color: #45a049;
+    width: 100%;
+    margin-top: 8px;
 }
 
 .leaderboards-container {
     display: flex;
-    gap: 20px;
+    gap: 16px;
     width: 100%;
-    max-width: 360px;
     margin-top: 20px;
-    box-sizing: border-box;
 }
 
 .personal-leaderboard, 
@@ -233,45 +197,48 @@ html, body {
     flex: 1;
     background-color: #f8f9fa;
     border-radius: 12px;
-    padding: 20px;
+    padding: 16px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
 .personal-leaderboard h2, 
 .daily-leaderboard h2 {
-    color: #333333;
-    font-size: 18px;
-    margin: 0 0 15px 0;
+    font-size: 16px;
+    margin: 0 0 12px 0;
     text-align: center;
-}
-
-ol {
-    padding-left: 0;
-    list-style-type: none;
-    color: #666666;
-    margin: 0;
-    counter-reset: leaderboard-counter;
-}
-
-li {
-    margin-bottom: 8px;
-    counter-increment: leaderboard-counter;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 8px;
-    background-color: #ffffff;
-    border-radius: 6px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-}
-
-li::before {
-    content: counter(leaderboard-counter) ". ";
-    color: #4CAF50;
-    margin-right: 8px;
+    color: #1a2b3c;
     font-weight: 600;
 }
 
+ol {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+li {
+    padding: 8px;
+    margin-bottom: 8px;
+    background-color: #ffffff;
+    border-radius: 6px;
+    text-align: center;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    color: #1a2b3c;
+    font-weight: 500;
+}
+
+/* States */
+.timer-warning {
+    color: #f59e0b;
+    font-weight: 600;
+}
+
+.timer-critical {
+    color: #ef4444;
+    font-weight: 600;
+}
+
+/* Animations */
 @keyframes flash {
     0% { background-color: #ffffff; }
     50% { background-color: #4CAF50; color: #ffffff; }
@@ -282,23 +249,14 @@ li::before {
     animation: flash 0.5s ease-in-out;
 }
 
-.timer-warning {
-    color: #FF8C00;
-    font-weight: 600;
-}
-
-.timer-critical {
-    color: #FF4136;
-    font-weight: 600;
-}
-
+/* Media Queries */
 @media (max-width: 600px) {
-    .app-header h1 {
-        font-size: 36px;
+    .app-container {
+        padding: 16px;
     }
 
-    .letter-tile {
-        font-size: 24px;
+    .app-header h1 {
+        font-size: 36px;
     }
 
     .input-container {
@@ -313,20 +271,8 @@ li::before {
         flex-direction: column;
     }
 
-    .status-container {
-        flex-wrap: wrap;
-        gap: 10px;
-    }
-
-    .status-item {
-        font-size: 16px;
-    }
-
-    .message-container,
-    .input-container,
-    .letters-container,
-    .status-container,
-    .guessed-words-container {
-        padding: 12px 15px;
+    .personal-leaderboard, 
+    .daily-leaderboard {
+        width: 100%;
     }
 }
