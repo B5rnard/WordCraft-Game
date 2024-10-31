@@ -1,17 +1,21 @@
+* {
+    background: none !important;
+}
+
 html, body {
-    margin: 0;
-    padding: 0;
-    font-family: 'Inter', sans-serif;
-    color: #1a2b3c;
-    min-height: 100vh;
-    height: 100%;
+    margin: 0 !important;
+    padding: 0 !important;
+    font-family: 'Inter', sans-serif !important;
+    color: #1a2b3c !important;
+    min-height: 100vh !important;
+    height: 100% !important;
     background-color: #ffffff !important;
 }
 
 body {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
 }
 
 .app-container {
@@ -23,7 +27,7 @@ body {
     padding: 20px;
     box-sizing: border-box;
     margin: 0 auto;
-    background-color: #ffffff;
+    background-color: #ffffff !important;
 }
 
 .app-header {
@@ -44,7 +48,7 @@ body {
     font-size: 16px;
     color: #1a2b3c;
     padding: 15px 20px;
-    background-color: #f8f9fa;
+    background-color: #f8f9fa !important;
     border-radius: 12px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
     line-height: 1.5;
@@ -64,7 +68,7 @@ body {
     gap: 12px;
     width: 100%;
     padding: 20px;
-    background-color: #f8f9fa;
+    background-color: #f8f9fa !important;
     border-radius: 12px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
     box-sizing: border-box;
@@ -72,7 +76,7 @@ body {
 
 .letter-tile {
     aspect-ratio: 1;
-    background-color: #ffffff;
+    background-color: #ffffff !important;
     color: #1a2b3c;
     font-size: 32px;
     font-weight: 700;
@@ -95,7 +99,7 @@ body {
     gap: 8px;
     width: 100%;
     padding: 16px;
-    background-color: #f8f9fa;
+    background-color: #f8f9fa !important;
     border-radius: 12px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
     box-sizing: border-box;
@@ -108,7 +112,7 @@ body {
     border: 2px solid #e5e7eb;
     border-radius: 8px;
     outline: none;
-    background: #ffffff;
+    background-color: #ffffff !important;
 }
 
 #wordInput:focus {
@@ -121,7 +125,7 @@ body {
     font-size: 16px;
     font-weight: 600;
     color: #ffffff;
-    background-color: #4CAF50;
+    background-color: #4CAF50 !important;
     border: none;
     border-radius: 8px;
     cursor: pointer;
@@ -129,13 +133,13 @@ body {
 }
 
 #submitButton:hover {
-    background-color: #45a049;
+    background-color: #45a049 !important;
 }
 
 .message-container {
     width: 100%;
     padding: 16px;
-    background-color: #f8f9fa;
+    background-color: #f8f9fa !important;
     border-radius: 12px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
     text-align: center;
@@ -152,7 +156,7 @@ body {
     justify-content: space-between;
     width: 100%;
     padding: 16px;
-    background-color: #f8f9fa;
+    background-color: #f8f9fa !important;
     border-radius: 12px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
     box-sizing: border-box;
@@ -171,7 +175,7 @@ body {
     gap: 8px;
     width: 100%;
     padding: 16px;
-    background-color: #f8f9fa;
+    background-color: #f8f9fa !important;
     border-radius: 12px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
     box-sizing: border-box;
@@ -179,7 +183,7 @@ body {
 }
 
 .guessed-word {
-    background-color: #ffffff;
+    background-color: #ffffff !important;
     color: #1a2b3c;
     padding: 8px 12px;
     border-radius: 6px;
@@ -192,7 +196,7 @@ body {
     font-size: 16px;
     font-weight: 600;
     color: #ffffff;
-    background-color: #4CAF50;
+    background-color: #4CAF50 !important;
     border: none;
     border-radius: 8px;
     cursor: pointer;
@@ -202,7 +206,7 @@ body {
 }
 
 .play-again-button:hover {
-    background-color: #45a049;
+    background-color: #45a049 !important;
 }
 
 .leaderboards-container {
@@ -215,7 +219,7 @@ body {
 .personal-leaderboard, 
 .daily-leaderboard {
     flex: 1;
-    background-color: #f8f9fa;
+    background-color: #f8f9fa !important;
     border-radius: 12px;
     padding: 16px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
@@ -239,7 +243,7 @@ ol {
 li {
     padding: 8px;
     margin-bottom: 8px;
-    background-color: #ffffff;
+    background-color: #ffffff !important;
     border-radius: 6px;
     text-align: center;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
@@ -260,9 +264,9 @@ li {
 
 /* Animations */
 @keyframes flash {
-    0% { background-color: #ffffff; }
-    50% { background-color: #4CAF50; color: #ffffff; }
-    100% { background-color: #ffffff; }
+    0% { background-color: #ffffff !important; }
+    50% { background-color: #4CAF50 !important; color: #ffffff; }
+    100% { background-color: #ffffff !important; }
 }
 
 .guessed-word.flash {
