@@ -1,139 +1,214 @@
-/* Base styles and resets */
+/* Reset and base styles */
 html, body {
     margin: 0;
     padding: 0;
     height: 100%;
     overflow: hidden;
+    box-sizing: border-box;
 }
 
 body {
     font-family: 'Inter', sans-serif;
     background-color: #ffffff;
     color: #333333;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.app-container {
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 100%;
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 1rem;
-    box-sizing: border-box;
-    height: 100%;
-    overflow-y: auto;
-    overflow-x: hidden;
-    /* Hide scrollbar for Chrome, Safari and Opera */
-    &::-webkit-scrollbar {
-        display: none;
-    }
-    /* Hide scrollbar for IE, Edge and Firefox */
-    -ms-overflow-style: none;
-    scrollbar-width: none;
 }
 
-.game-container {
+/* Main container */
+.app-container {
     width: 100%;
     max-width: 600px;
-    margin: 0 auto;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    padding: 2rem 1rem;
+    margin: 0 auto;
+    box-sizing: border-box;
 }
 
-/* Keep all your existing styles but add these adjustments to the game area */
-.game-area {
+/* Game header */
+.app-header {
+    text-align: center;
+    margin-bottom: 2rem;
+    width: 100%;
+}
+
+.app-header h1 {
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin: 0 0 1rem 0;
+}
+
+.app-header p {
+    font-size: 1rem;
+    line-height: 1.5;
+    margin: 0;
+    color: #555555;
+}
+
+/* Game area */
+.game-container {
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    gap: 2rem;
 }
 
+/* Letters grid */
 .letters-container {
     display: grid;
-    grid-template-columns: repeat(3, minmax(min-content, 100px));
+    grid-template-columns: repeat(3, 1fr);
     gap: 0.75rem;
-    margin: 1rem auto;
-    justify-content: center;
-    padding: 0;
+    width: 100%;
+    max-width: 360px;
+    margin: 0 auto;
 }
 
 .letter-tile {
     aspect-ratio: 1;
-    width: 100%;
-    max-width: 80px; /* Reduced from 120px */
-    height: auto;
+    background-color: #f0f0f0;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    font-weight: 700;
+    color: #333333;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-transform: uppercase;
 }
 
-/* Adjust input container for better centering */
+/* Input area */
 .input-container {
     display: flex;
-    justify-content: center;
     gap: 0.5rem;
-    margin: 1rem auto;
     width: 100%;
-    max-width: 400px;
-    padding: 0 1rem;
+    max-width: 360px;
+    margin: 0 auto;
 }
 
-/* Status container adjustments */
+#wordInput {
+    flex: 1;
+    padding: 0.75rem;
+    font-size: 1rem;
+    border: 2px solid #d9d9d9;
+    border-radius: 4px;
+    min-width: 0;
+}
+
+#submitButton {
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    background-color: #4CAF50;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+/* Message area */
+.message-container {
+    text-align: center;
+    margin: 1rem 0;
+    min-height: 1.5rem;
+}
+
+/* Game stats */
 .status-container {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 1rem;
-    margin: 1rem auto;
     width: 100%;
-    max-width: 400px;
-    padding: 0 1rem;
-}
-
-/* Adjust header for better spacing */
-.app-header {
+    max-width: 360px;
     text-align: center;
-    margin-bottom: 1rem;
-    padding: 0 1rem;
+    margin: 1rem 0;
 }
 
-.app-header h1 {
-    font-size: clamp(1.5rem, 4vw, 2.25rem);
-    margin-bottom: 0.5rem;
+.status-item {
+    font-size: 1rem;
 }
 
-.app-header p {
-    font-size: clamp(0.875rem, 1.5vw, 1rem);
-    margin: 0.5rem 0;
-    max-width: 500px;
+/* Play again button */
+.play-again-button {
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    background-color: #4CAF50;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin: 1rem 0;
 }
 
-@media (max-width: 768px) {
+/* Leaderboard sections */
+.leaderboards-container {
+    width: 100%;
+    max-width: 360px;
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.personal-leaderboard,
+.daily-leaderboard {
+    background-color: #ffffff;
+    border: 2px solid #d9d9d9;
+    border-radius: 8px;
+    padding: 1rem;
+}
+
+.personal-leaderboard h2,
+.daily-leaderboard h2 {
+    font-size: 1.25rem;
+    margin: 0 0 1rem 0;
+    text-align: center;
+}
+
+/* Mobile optimizations */
+@media (max-width: 480px) {
     .app-container {
-        padding: 0.5rem;
+        padding: 1rem;
     }
-    
+
+    .app-header h1 {
+        font-size: 2rem;
+    }
+
     .letter-tile {
-        max-width: 70px;
+        font-size: 1.5rem;
     }
-    
+
     .input-container {
         flex-direction: column;
-        max-width: 300px;
+    }
+
+    #submitButton {
+        width: 100%;
     }
 }
 
-@media (max-width: 480px) {
-    .letter-tile {
-        max-width: 60px;
-    }
-    
-    .app-header h1 {
-        font-size: clamp(1.25rem, 3vw, 1.75rem);
-    }
+/* Animation states */
+@keyframes flash {
+    0% { background-color: #e6e6e6; }
+    50% { background-color: #4CAF50; }
+    100% { background-color: #e6e6e6; }
 }
 
-/* Keep your existing animation and timer styles */
+.guessed-word.flash {
+    animation: flash 0.5s ease-in-out;
+}
+
+.timer-warning {
+    color: #FF8C00;
+}
+
+.timer-critical {
+    color: #FF4136;
+}
