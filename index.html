@@ -4,54 +4,72 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WordCraft</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <!-- Firebase App (the core Firebase SDK) -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <!-- Firebase Database -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 </head>
 <body>
     <div class="app-container">
-        <header class="app-header">
+        <div class="app-header">
             <h1>WordCraft</h1>
-            <p>Form words from the given letters before time runs out<br>Each word you guess adds its number of letters back to the clock in seconds!</p>
-        </header>
+            <p>Form words from the given letters before time runs out<br>
+            Each word you guess adds its number of letters back to the clock in seconds!</p>
+        </div>
 
-        <main class="game-container">
+        <div class="game-container" role="main">
             <div class="game-area">
-                <div id="letters" class="letters-container"></div>
+                <div id="letters" class="letters-container">
+                    <!-- Letter tiles will be inserted here by JavaScript -->
+                </div>
 
                 <div class="input-container">
                     <input type="text" id="wordInput" placeholder="Enter your word">
                     <button id="submitButton">Submit</button>
                 </div>
 
-                <div id="message" class="message-container"></div>
-
-                <div class="status-container">
-                    <div class="status-item">Score: <span id="score">0</span></div>
-                    <div class="status-item">Time: <span id="timer">30</span>s</div>
-                    <div class="status-item">Best: <span id="highScore">0</span></div>
+                <div id="message" class="message-container">
+                    <!-- Messages will be inserted here by JavaScript -->
                 </div>
 
-                <div id="guessedWords" class="guessed-words-container"></div>
+                <div class="status-container">
+                    <div class="status-item">
+                        Score: <span id="score">0</span>
+                    </div>
+                    <div class="status-item">
+                        Time: <span id="timer">30</span>s
+                    </div>
+                    <div class="status-item">
+                        Best: <span id="highScore">0</span>
+                    </div>
+                </div>
 
-                <button id="playAgainButton" class="play-again-button">Play Again</button>
+                <div id="guessedWords" class="guessed-words-container">
+                    <!-- Guessed words will be inserted here by JavaScript -->
+                </div>
+
+                <button id="playAgainButton" class="play-again-button" style="display: none;">Play Again</button>
             </div>
 
             <div class="leaderboards-container">
                 <div class="personal-leaderboard">
                     <h2>Your Top Scores</h2>
-                    <ol id="personalScores"></ol>
+                    <ol id="personalScores">
+                        <!-- Personal scores will be inserted here by JavaScript -->
+                    </ol>
                 </div>
-                
                 <div class="daily-leaderboard">
                     <h2>Global Top Scores Today</h2>
-                    <ol id="dailyScores"></ol>
+                    <ol id="dailyScores">
+                        <!-- Daily scores will be inserted here by JavaScript -->
+                    </ol>
                 </div>
             </div>
-        </main>
+        </div>
     </div>
 
-    <!-- Firebase SDK -->
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
