@@ -280,7 +280,7 @@ class WordGame {
         localStorage.setItem('personalLeaderboard', JSON.stringify(this.personalLeaderboard));
     
         this.personalScoresList.innerHTML = this.personalLeaderboard
-          .map((score, index) => `<li>${index + 1}. ${score}</li>`)
+          .map((score, index) => `<li>${score}</li>`)
           .join('');
     }
 
@@ -292,10 +292,11 @@ class WordGame {
             .on('value', (snapshot) => {
                 const scores = [];
                 snapshot.forEach((childSnapshot) => {
-                    scores.unshift(childSnapshot.val().score);
+                    scores.push(childSnapshot.val().score);
                 });
+                scores.sort((a, b) => b - a); // Sort scores in descending order
                 this.dailyScoresList.innerHTML = scores
-                    .map((score, index) => `<li>${index + 1}. ${score}</li>`)
+                    .map((score, index) => `<li>${score}</li>`)
                     .join('');
             });
     }
