@@ -12,7 +12,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    background: linear-gradient(to bottom, #1e3a8a 0%, #1e3a8a 48px, #ffffff 48px, #ffffff 100%);
+    background: #ffffff; 
 }
 
 .app-container {
