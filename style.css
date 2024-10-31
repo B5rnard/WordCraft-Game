@@ -2,17 +2,16 @@ html, body {
     margin: 0;
     padding: 0;
     font-family: 'Inter', sans-serif;
-    background-color: #ffffff;
     color: #1a2b3c;
     min-height: 100vh;
     height: 100%;
+    background-color: #ffffff !important;
 }
 
 body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    background: #ffffff; 
 }
 
 .app-container {
@@ -24,6 +23,7 @@ body {
     padding: 20px;
     box-sizing: border-box;
     margin: 0 auto;
+    background-color: #ffffff;
 }
 
 .app-header {
@@ -85,6 +85,11 @@ body {
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
+.letter-tile:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
 .input-container {
     display: flex;
     gap: 8px;
@@ -106,6 +111,11 @@ body {
     background: #ffffff;
 }
 
+#wordInput:focus {
+    border-color: #4CAF50;
+    box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
+}
+
 #submitButton {
     padding: 12px 24px;
     font-size: 16px;
@@ -115,6 +125,11 @@ body {
     border: none;
     border-radius: 8px;
     cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+#submitButton:hover {
+    background-color: #45a049;
 }
 
 .message-container {
@@ -183,6 +198,11 @@ body {
     cursor: pointer;
     width: 100%;
     margin-top: 8px;
+    transition: background-color 0.2s ease;
+}
+
+.play-again-button:hover {
+    background-color: #45a049;
 }
 
 .leaderboards-container {
