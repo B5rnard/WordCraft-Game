@@ -1,109 +1,199 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>WordCraft | MicroGames</title>
-        <!-- Import both Inconsolata and Inter from Google Fonts -->
-        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inconsolata:wght@400;700&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="style.css">
-        <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
-    </head>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WordCraft | MicroGames</title>
+    <!-- Import Inconsolata and Inter from Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inconsolata:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <!-- Firebase Configuration -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+</head>
 <body>
 
     <!-- Main Game Content -->
     <div class="game-content" id="gameContent">
         <div class="game-area">
-        
+
             <!-- Game Grid -->
             <div id="letters" class="letters-container">
                 <!-- Letter tiles will be inserted here by JavaScript -->
             </div>
 
-            <!-- Game Stats (Moved here) -->
+            <!-- Game Stats -->
             <div class="status-container">
-                <div class="status-item">
-                    Score: <span id="score">0</span>
-                </div>
-                <div class="status-item">
-                    Time: <span id="timer">30</span>s
-                </div>
-                <div class="status-item">
-                    Best: <span id="highScore">0</span>
-                </div>
+                <div class="status-item">Score: <span id="score">0</span></div>
+                <div class="status-item">Time: <span id="timer">30</span>s</div>
+                <div class="status-item">Best: <span id="highScore">0</span></div>
             </div>
 
             <!-- Input Section -->
             <div class="input-section">
                 <div class="input-container">
-                    <input 
-                        type="text" 
-                        id="wordInput" 
-                        placeholder="Enter your word" 
-                        autocomplete="off"
-                        autocapitalize="off"
-                    >
+                    <input type="text" id="wordInput" placeholder="Enter your word" autocomplete="off" autocapitalize="off">
                     <button id="submitButton">Submit</button>
                 </div>
-
-                <!-- Message Container -->
                 <div id="message" class="message-container"></div>
-
-                <!-- Play Again Button -->
-                <button id="playAgainButton" class="play-again-button" style="display: none;">
-                    Play Again
-                </button>
+                <button id="playAgainButton" class="play-again-button" style="display: none;">Play Again</button>
             </div>
 
             <!-- Guessed Words -->
-            <div id="guessedWords" class="guessed-words-container">
-                <!-- Guessed words will be inserted here by JavaScript -->
-            </div>
+            <div id="guessedWords" class="guessed-words-container"></div>
         </div>
 
         <!-- Leaderboards -->
         <div class="leaderboards-container">
             <div class="personal-leaderboard">
                 <h2>Your Top Scores</h2>
-                <ol id="personalScores">
-                    <!-- Personal scores will be inserted here by JavaScript -->
-                </ol>
+                <ol id="personalScores"></ol>
             </div>
             <div class="daily-leaderboard">
                 <h2>Global Top Scores Today</h2>
-                <ol id="dailyScores">
-                    <!-- Daily scores will be inserted here by JavaScript -->
-                </ol>
+                <ol id="dailyScores"></ol>
             </div>
         </div>
     </div>
 
-    <!-- Scripts -->
+    <!-- JavaScript -->
     <script>
-        // Modal control
-        document.addEventListener('DOMContentLoaded', function() {
-            const startButton = document.getElementById('startButton');
-            const rulesModal = document.getElementById('rulesModal');
-            const gameContent = document.getElementById('gameContent');
+        // Firebase Configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyCIRwazCpmXp5el5pcyrVjoYb962fZpc7Y",
+            authDomain: "wordcraft-17de9.firebaseapp.com",
+            databaseURL: "https://wordcraft-17de9-default-rtdb.firebaseio.com",
+            projectId: "wordcraft-17de9",
+            storageBucket: "wordcraft-17de9.appspot.com",
+            messagingSenderId: "411593162986",
+            appId: "1:411593162986:web:481c9e7f7bf85a58e9d793",
+            measurementId: "G-8GQX7TV5NE"
+        };
 
-            startButton.addEventListener('click', function() {
-                rulesModal.style.display = 'none';
-                gameContent.classList.add('active');
-                if (typeof game !== 'undefined') {
-                    game.startGame();
-                }
-            });
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.database();
 
-            // Handle keyboard events
-            document.addEventListener('keydown', function(event) {
-                const wordInput = document.getElementById('wordInput');
-                if (document.activeElement !== wordInput) {
-                    wordInput.focus();
+        class WordGame {
+            constructor() {
+                this.initDOMElements();
+                this.initGameState();
+                this.addEventListeners();
+                this.personalLeaderboard = JSON.parse(localStorage.getItem('personalLeaderboard')) || [];
+                this.updatePersonalLeaderboard();
+                this.updateDailyLeaderboard();
+            }
+
+            initDOMElements() {
+                this.lettersElement = document.getElementById('letters');
+                this.wordInput = document.getElementById('wordInput');
+                this.submitButton = document.getElementById('submitButton');
+                this.scoreElement = document.getElementById('score');
+                this.timerElement = document.getElementById('timer');
+                this.guessedWordsContainer = document.getElementById('guessedWords');
+                this.messageElement = document.getElementById('message');
+                this.playAgainButton = document.getElementById('playAgainButton');
+                this.highScoreElement = document.getElementById('highScore');
+                this.personalScoresList = document.getElementById('personalScores');
+                this.dailyScoresList = document.getElementById('dailyScores');
+            }
+
+            initGameState() {
+                this.letters = [];
+                this.score = 0;
+                this.timeLeft = 30;
+                this.submittedWords = new Set();
+                this.nineLetterWord = '';
+                this.timerInterval = null;
+                this.highScore = parseInt(localStorage.getItem('highScore')) || 0;
+                this.highScoreElement.textContent = this.highScore;
+            }
+
+            addEventListeners() {
+                this.submitButton.addEventListener('click', () => this.submitWord());
+                this.wordInput.addEventListener('keypress', (event) => {
+                    if (event.key === 'Enter') {
+                        this.submitWord();
+                    }
+                });
+                this.playAgainButton.addEventListener('click', () => this.resetGame());
+            }
+
+            startGame() {
+                this.initGameState();
+                this.selectNineLetterWord();
+                this.generateLetters();
+                this.startTimer();
+                this.wordInput.focus();
+                this.wordInput.disabled = false;
+                this.playAgainButton.style.display = 'none';
+                this.messageElement.textContent = '';
+                this.scoreElement.textContent = '0';
+            }
+
+            resetGame() {
+                clearInterval(this.timerInterval);
+                this.initGameState();
+                this.wordInput.disabled = false;
+                this.guessedWordsContainer.innerHTML = '';
+                this.messageElement.textContent = '';
+                this.startGame();
+            }
+
+            selectNineLetterWord() {
+                const randomIndex = Math.floor(Math.random() * this.nineLetterWords.length);
+                this.nineLetterWord = this.nineLetterWords[randomIndex];
+            }
+
+            generateLetters() {
+                this.letters = this.shuffleArray([...this.nineLetterWord]);
+                this.renderLetters();
+            }
+
+            shuffleArray(array) {
+                const arr = [...array];
+                for (let i = arr.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [arr[i], arr[j]] = [arr[j], arr[i]];
                 }
-            });
+                return arr;
+            }
+
+            renderLetters() {
+                this.lettersElement.innerHTML = '';
+                this.letters.forEach(letter => {
+                    const letterTile = document.createElement('div');
+                    letterTile.textContent = letter.toUpperCase();
+                    letterTile.className = 'letter-tile';
+                    this.lettersElement.appendChild(letterTile);
+                });
+            }
+
+            startTimer() {
+                clearInterval(this.timerInterval);
+                this.timeLeft = 30;
+                this.timerElement.textContent = this.timeLeft;
+                this.timerInterval = setInterval(() => {
+                    this.timeLeft--;
+                    this.timerElement.textContent = this.timeLeft;
+                    if (this.timeLeft <= 0) {
+                        clearInterval(this.timerInterval);
+                        this.endGame();
+                    }
+                }, 1000);
+            }
+
+            submitWord() {
+                // Implement submitWord functionality
+            }
+
+            // Additional methods here...
+        }
+
+        // Initialize game when document loads
+        document.addEventListener('DOMContentLoaded', () => {
+            window.game = new WordGame();
         });
     </script>
-    <script src="script.js"></script>
 </body>
 </html>
