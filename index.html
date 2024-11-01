@@ -4,29 +4,23 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>WordCraft | MicroGames</title>
+        <!-- Import both Inconsolata and Inter from Google Fonts -->
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inconsolata:wght@400;700&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="style.css">
         <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
         <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
     </head>
 <body>
-
-    <!-- Game Title and Rules (Replacing Modal) -->
-    <div class="game-intro">
-        <h1>WordCraft</h1>
-        <div class="rules">
-            <h2>Game Rules</h2>
-            <p>Create as many words as you can from the given letters before time runs out!</p>
-            <p>Each word you guess adds its number of letters back to the clock in seconds!</p>
-        </div>
-        <button class="start-button" id="startButton">Start Game!</button>
-    </div>
-
     <!-- Main Game Content -->
     <div class="game-content" id="gameContent">
         <div class="game-area">
-            <div id="letters" class="letters-container"></div>
+        
+            <!-- Game Grid -->
+            <div id="letters" class="letters-container">
+                <!-- Letter tiles will be inserted here by JavaScript -->
+            </div>
 
+            <!-- Game Stats (Moved here) -->
             <div class="status-container">
                 <div class="status-item">
                     Score: <span id="score">0</span>
@@ -39,6 +33,7 @@
                 </div>
             </div>
 
+            <!-- Input Section -->
             <div class="input-section">
                 <div class="input-container">
                     <input 
@@ -51,28 +46,51 @@
                     <button id="submitButton">Submit</button>
                 </div>
 
+                <!-- Message Container -->
                 <div id="message" class="message-container"></div>
 
+                <!-- Play Again Button -->
                 <button id="playAgainButton" class="play-again-button" style="display: none;">
                     Play Again
                 </button>
             </div>
 
-            <div id="guessedWords" class="guessed-words-container"></div>
+            <!-- Guessed Words -->
+            <div id="guessedWords" class="guessed-words-container">
+                <!-- Guessed words will be inserted here by JavaScript -->
+            </div>
         </div>
 
+        <!-- Leaderboards -->
         <div class="leaderboards-container">
             <div class="personal-leaderboard">
                 <h2>Your Top Scores</h2>
-                <ol id="personalScores"></ol>
+                <ol id="personalScores">
+                    <!-- Personal scores will be inserted here by JavaScript -->
+                </ol>
             </div>
             <div class="daily-leaderboard">
                 <h2>Global Top Scores Today</h2>
-                <ol id="dailyScores"></ol>
+                <ol id="dailyScores">
+                    <!-- Daily scores will be inserted here by JavaScript -->
+                </ol>
             </div>
         </div>
     </div>
 
+    <!-- Scripts -->
+    <script>
+        // Handle keyboard events
+        document.addEventListener('DOMContentLoaded', function() {
+            // Focus on the input when typing
+            document.addEventListener('keydown', function(event) {
+                const wordInput = document.getElementById('wordInput');
+                if (document.activeElement !== wordInput) {
+                    wordInput.focus();
+                }
+            });
+        });
+    </script>
     <script src="script.js"></script>
 </body>
 </html>
