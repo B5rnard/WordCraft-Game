@@ -22,7 +22,6 @@ class WordGame {
         this.personalLeaderboard = JSON.parse(localStorage.getItem('personalLeaderboard')) || [];
         this.updatePersonalLeaderboard();
         this.updateDailyLeaderboard();
-        this.startGame();
     }
 
     initDOMElements() {
@@ -88,9 +87,16 @@ class WordGame {
                 this.submitWord();
             }
         });
-        this.playAgainButton.addEventListener('click', () => this.resetGame());
-    
-    }
+        // Event listener for Start Game / Play Again button
+        this.playAgainButton.addEventListener('click', () => {
+            if (this.playAgainButton.textContent === "Start Game") {
+                this.startGame();
+            } else {
+                this.resetGame();
+                this.startGame();
+            }
+        });
+     }
 
     startGame() {
         this.selectNineLetterWord();
@@ -98,8 +104,8 @@ class WordGame {
         this.startTimer();
         this.wordInput.focus();
         this.wordInput.disabled = false;
-        this.highScoreElement.textContent = this.highScore;
-        this.playAgainButton.style.display = 'none';
+         this.playAgainButton.textContent = "Play Again"; // Change text to "Play Again" after game starts
+        this.playAgainButton.style.display = 'block'; // Ensure button is visible after game start
         this.messageElement.textContent = '';
         this.scoreElement.textContent = '0';
     }
@@ -111,7 +117,7 @@ class WordGame {
         this.guessedWordsContainer.innerHTML = '';
         this.messageElement.textContent = '';
         this.timerElement.classList.remove('timer-warning', 'timer-critical');
-        this.startGame();
+        this.playAgainButton.textContent = "Start Game"; // Reset button to "Start Game"
     }
 
     selectNineLetterWord() {
