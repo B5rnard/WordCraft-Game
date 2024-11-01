@@ -37,7 +37,6 @@ class WordGame {
         this.highScoreElement = document.getElementById('highScore');
         this.personalScoresList = document.getElementById('personalScores');
         this.dailyScoresList = document.getElementById('dailyScores');
-        this.rulesModal = document.getElementById('rulesModal');
         this.startButton = document.getElementById('startButton');
         this.gameContent = document.getElementById('gameContent');
     }
@@ -91,16 +90,13 @@ class WordGame {
             }
         });
         this.playAgainButton.addEventListener('click', () => this.resetGame());
+         // Wait for external "Start Game" signal
+         document.addEventListener('startGame', () => this.startGame());
         
-        // Add modal control
-        this.startButton.addEventListener('click', () => {
-            this.rulesModal.style.display = 'none';
-            this.gameContent.classList.add('active');
-            this.startGame();
-        });
     }
 
     startGame() {
+        this.initGameState();
         this.selectNineLetterWord();
         this.generateLetters();
         this.startTimer();
