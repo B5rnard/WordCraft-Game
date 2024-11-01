@@ -11,16 +11,16 @@ html, body {
 /* Apply Inconsolata to Headers */
 h1, h2, h3, h4, h5, h6 {
     font-family: 'Inconsolata', monospace;
-    font-weight: 100;
+    font-weight: 100; /* Optional: adjust weight if needed */
 }
 
-/* Additional styling for paragraph text */
+/* Styling for paragraph text */
 p {
     font-family: 'Inter', sans-serif;
     font-weight: 400;
 }
 
-/* Example for customizing other text elements */
+/* Button & input label styles */
 .button, .input-label {
     font-family: 'Inter', sans-serif;
 }
@@ -33,6 +33,8 @@ body {
 
 /* Game Content */
 .game-content {
+    opacity: 1;
+    transition: opacity 0.3s ease;
     width: 100%;
     max-width: 900px;
     margin: 0 auto;
