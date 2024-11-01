@@ -2,7 +2,7 @@
 html, body {
     margin: 0;
     padding: 0;
-    font-family: 'Inter', sans-serif;
+    font-family: 'Poppins', sans-serif; /* Set Poppins as the default font */
     color: #1a2b3c;
     height: 100%;
     background-color: #ffffff !important;
@@ -10,18 +10,18 @@ html, body {
 
 /* Apply Inconsolata to Headers */
 h1, h2, h3, h4, h5, h6 {
-    font-family: 'Inconsolata', monospace;
-    font-weight: 100;
+    font-family: 'Urbanist', sans-serif; /* Use Urbanist for headers */
+    font-weight: 100; 
 }
 
 /* Additional styling for paragraph text */
 p {
-    font-family: 'Inter', sans-serif;
+    font-family: 'Poppins', sans-serif;
     font-weight: 400;
 }
 
 .button, .input-label {
-    font-family: 'Inter', sans-serif;
+    font-family: 'Poppins', sans-serif;
 }
 
 body {
