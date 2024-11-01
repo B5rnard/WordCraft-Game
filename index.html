@@ -3,70 +3,118 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WordCraft</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <title>WordCraft | MicroGames</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-    <!-- Firebase App (the core Firebase SDK) -->
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-    <!-- Firebase Database -->
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 </head>
 <body>
-    <div class="app-container">
-        <div class="app-header">
+    <!-- Rules Modal -->
+    <div class="rules-modal" id="rulesModal">
+        <div class="modal-content">
             <h1>WordCraft</h1>
-            <p>Create as many words as you can from the given letters before time runs out!</p>
-            <p>Each word you guess adds its number of letters back to the clock in seconds!</p>
+            <div class="rules">
+                <h2>Game Rules</h2>
+                <p>Create as many words as you can from the given letters before time runs out!</p>
+                <p>Each word you guess adds its number of letters back to the clock in seconds!</p>
+            </div>
+            <button class="start-button" id="startButton">Start Game!</button>
         </div>
+    </div>
 
-        <div class="game-container">
-            <div class="game-area">
-                <!-- Letters grid -->
-                <div id="letters" class="letters-container"></div>
+    <!-- Main Game Content -->
+    <div class="game-content" id="gameContent">
+        <div class="game-area">
+        
+            <!-- Game Grid -->
+            <div id="letters" class="letters-container">
+                <!-- Letter tiles will be inserted here by JavaScript -->
+            </div>
 
-                <!-- Input area -->
+            <!-- Game Stats (Moved here) -->
+            <div class="status-container">
+                <div class="status-item">
+                    Score: <span id="score">0</span>
+                </div>
+                <div class="status-item">
+                    Time: <span id="timer">30</span>s
+                </div>
+                <div class="status-item">
+                    Best: <span id="highScore">0</span>
+                </div>
+            </div>
+
+            <!-- Input Section -->
+            <div class="input-section">
                 <div class="input-container">
-                    <input type="text" id="wordInput" placeholder="Enter your word">
+                    <input 
+                        type="text" 
+                        id="wordInput" 
+                        placeholder="Enter your word" 
+                        autocomplete="off"
+                        autocapitalize="off"
+                    >
                     <button id="submitButton">Submit</button>
                 </div>
 
-                <!-- Message container -->
+                <!-- Message Container -->
                 <div id="message" class="message-container"></div>
 
-                <!-- Status container -->
-                <div class="status-container">
-                    <div class="status-item">
-                        Score: <span id="score">0</span>
-                    </div>
-                    <div class="status-item">
-                        Time: <span id="timer">30</span>s
-                    </div>
-                    <div class="status-item">
-                        Best: <span id="highScore">0</span>
-                    </div>
-                </div>
-
-                <!-- Guessed words -->
-                <div id="guessedWords" class="guessed-words-container"></div>
-
-                <!-- Play again button -->
-                <button id="playAgainButton" class="play-again-button">Play Again</button>
+                <!-- Play Again Button -->
+                <button id="playAgainButton" class="play-again-button" style="display: none;">
+                    Play Again
+                </button>
             </div>
 
-            <!-- Leaderboards -->
-            <div class="leaderboards-container">
-                <div class="personal-leaderboard">
-                    <h2>Your Top Scores</h2>
-                    <ol id="personalScores"></ol>
-                </div>
-                <div class="daily-leaderboard">
-                    <h2>Global Top Scores Today</h2>
-                    <ol id="dailyScores"></ol>
-                </div>
+            <!-- Guessed Words -->
+            <div id="guessedWords" class="guessed-words-container">
+                <!-- Guessed words will be inserted here by JavaScript -->
+            </div>
+        </div>
+
+        <!-- Leaderboards -->
+        <div class="leaderboards-container">
+            <div class="personal-leaderboard">
+                <h2>Your Top Scores</h2>
+                <ol id="personalScores">
+                    <!-- Personal scores will be inserted here by JavaScript -->
+                </ol>
+            </div>
+            <div class="daily-leaderboard">
+                <h2>Global Top Scores Today</h2>
+                <ol id="dailyScores">
+                    <!-- Daily scores will be inserted here by JavaScript -->
+                </ol>
             </div>
         </div>
     </div>
 
+    <!-- Scripts -->
+    <script>
+        // Modal control
+        document.addEventListener('DOMContentLoaded', function() {
+            const startButton = document.getElementById('startButton');
+            const rulesModal = document.getElementById('rulesModal');
+            const gameContent = document.getElementById('gameContent');
+
+            startButton.addEventListener('click', function() {
+                rulesModal.style.display = 'none';
+                gameContent.classList.add('active');
+                if (typeof game !== 'undefined') {
+                    game.startGame();
+                }
+            });
+
+            // Handle keyboard events
+            document.addEventListener('keydown', function(event) {
+                const wordInput = document.getElementById('wordInput');
+                if (document.activeElement !== wordInput) {
+                    wordInput.focus();
+                }
+            });
+        });
+    </script>
     <script src="script.js"></script>
 </body>
 </html>
