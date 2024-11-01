@@ -4,195 +4,28 @@ html, body {
     padding: 0;
     font-family: 'Inter', sans-serif;
     color: #1a2b3c;
-    height: 100%;
-    background-color: #ffffff !important;
+    background-color: #ffffff;
 }
 
-/* Apply Inconsolata to Headers */
+/* Headers */
 h1, h2, h3, h4, h5, h6 {
     font-family: 'Inconsolata', monospace;
-    font-weight: 100; /* Optional: adjust weight if needed */
-}
-
-/* Additional styling for paragraph text (if needed) */
-p {
-    font-family: 'Inter', sans-serif;
-    font-weight: 400;
-}
-
-/* Example for customizing other text elements if needed */
-.button, .input-label {
-    font-family: 'Inter', sans-serif; /* Set other elements to Inter */
-}
-
-
-body {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-/* Modal Styles */
-.rules-modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: rgba(255, 255, 255, 0.98);
-    z-index: 1000;
-}
-
-.modal-content {
-    background: #ffffff;
-    padding: 1.5rem; /* Reduced padding */
-    border-radius: 12px;
-    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
-    max-width: 90%; /* Make it responsive */
-    max-height: 80vh; /* Limit height to 80% of the viewport */
-    text-align: center;
-    overflow-y: auto; /* Add scroll for overflow */
-}
-
-.modal-content h1 {
-    font-size: 2.5rem;
-    font-weight: 800;
-    margin: 0 0 1.5rem 0;
-    color: #1a2b3c;
-}
-
-.rules {
-    margin: 2rem 0;
-}
-
-.rules h2 {
-    font-size: 1.5rem;
-    margin-bottom: 1rem;
-    color: #1a2b3c;
-}
-
-.rules p {
-    font-size: 1rem;
-    line-height: 1.6;
-    color: #966b70;
-    margin: 0.75rem 0;
-}
-
-.start-button {
-    background: #4CAF50;
-    color: white;
-    border: none;
-    padding: 1rem 2rem;
-    font-size: 1.125rem;
-    font-weight: 600;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-}
-
-.start-button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(76, 175, 80, 0.2);
 }
 
 /* Game Content */
 .game-content {
-    opacity: 0;
-    transition: opacity 0.3s ease;
     width: 100%;
     max-width: 900px;
     margin: 0 auto;
     padding: 1rem;
 }
 
-.game-content.active {
-    opacity: 1;
-}
-
-/* Game Layout */
 .game-area {
-    width: 100%;
-    margin: 0 auto;
-}
-
-/* Desktop Layout (min-width: 768px) */
-@media (min-width: 768px) {
-    .game-area {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        grid-template-areas:
-            "letters input"
-            "letters guessed-words"
-            "letters status";
-        gap: 1rem;
-    }
-
-    .letters-container {
-        grid-area: letters;
-        max-width: 400px;
-    }
-
-    .input-container {
-        grid-area: input;
-    }
-
-    .guessed-words-container {
-        grid-area: guessed-words;
-        max-height: 300px;
-        overflow-y: auto;
-    }
-
-    .status-container {
-        grid-area: status;
-        justify-content: flex-start;
-    }
-}
-
-/* Mobile Layout (max-width: 767px) */
-@media (max-width: 767px) {
-    .game-area {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 1rem;
-    }
-
-    .letters-container {
-        max-width: 360px;
-        margin: 0 auto;
-    }
-
-    .input-container, .status-container, .guessed-words-container {
-        width: 100%;
-        max-width: 360px;
-    }
-
-    #submitButton {
-        width: 100%;
-    }
-
-    .status-container {
-        justify-content: space-between;
-    }
-}
-
-/* App Container */
-.app-container {
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 100%;
     margin: 0 auto;
-}
-
-.app-container h1 {
-    font-size: 2.5rem;
-    font-weight: 800;
-    margin: 0 0 1.5rem 0;
-    color: #4a191e;
 }
 
 /* Letters Grid */
@@ -200,52 +33,60 @@ body {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 12px;
-    width: 100%;
     padding: 20px;
     background-color: #f8f9fa;
     border-radius: 12px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-    box-sizing: border-box;
-    aspect-ratio: 1;
 }
 
 .letter-tile {
-    aspect-ratio: 1;
-    background-color: #ffffff;
-    color: #1a2b3c;
-    font-size: clamp(1.5rem, 4vw, 2rem);
-    font-weight: 700;
     display: flex;
     justify-content: center;
     align-items: center;
-    text-transform: uppercase;
     border-radius: 8px;
+    background-color: #ffffff;
+    font-size: clamp(1.5rem, 4vw, 2rem);
+    font-weight: 700;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.letter-tile:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+/* Game Stats */
+.status-container {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    max-width: 400px;
+    margin: 1rem auto;
+    background-color: #f8f9fa;
+    padding: 1rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
-/* Input Area */
+.status-item {
+    text-align: center;
+    font-size: 1.125rem;
+    color: #1a2b3c;
+    font-weight: 500;
+}
+
+/* Input Section */
 .input-section {
     display: flex;
     flex-direction: column;
     gap: 1rem;
     width: 100%;
+    max-width: 360px;
+    margin: 1rem auto;
 }
 
 .input-container {
     display: flex;
     gap: 8px;
-    width: 100%;
     padding: 16px;
     background-color: #f8f9fa;
     border-radius: 12px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-    box-sizing: border-box;
 }
 
 #wordInput {
@@ -259,8 +100,8 @@ body {
 }
 
 #wordInput:focus {
-    border-color: #4CAF50;
-    box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
+    border-color: #FF5666;
+    box-shadow: 0 0 0 3px rgba(255, 86, 102, 0.1);
 }
 
 #submitButton {
@@ -268,7 +109,7 @@ body {
     font-size: 16px;
     font-weight: 600;
     color: #ffffff;
-    background-color: #ff5666;
+    background-color: #FF5666;
     border: none;
     border-radius: 8px;
     cursor: pointer;
@@ -277,73 +118,26 @@ body {
 }
 
 #submitButton:hover {
-    background-color: #f97885;
+    background-color: #F6AE2D;
     transform: translateY(-1px);
 }
 
 /* Message Container */
 .message-container {
-    width: 100%;
     padding: 16px;
     background-color: #f8f9fa;
     border-radius: 12px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
     text-align: center;
     font-size: 16px;
-    box-sizing: border-box;
     min-height: 56px;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-/* Status Container */
-.status-container {
-    display: flex;
-    gap: 2rem;
-    padding: 1rem;
-    background-color: #f8f9fa;
-    border-radius: 12px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-}
-
-.status-item {
-    text-align: center;
-    font-size: 1.125rem;
-    color: #1a2b3c;
-    font-weight: 500;
-}
-
-/* Guessed Words */
-.guessed-words-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    width: 100%;
-    padding: 16px;
-    background-color: #f8f9fa;
-    border-radius: 12px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-    box-sizing: border-box;
-    justify-content: center;
-    align-items: center;
-}
-
-.guessed-word {
-    background-color: #ffffff;
-    color: #1a2b3c;
-    padding: 8px 12px;
-    border-radius: 6px;
-    font-size: 14px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    display: flex;
-    align-items: center; /* Centers content vertically */
-    justify-content: center; /* Centers content horizontally */
-}
-
 /* Play Again Button */
 .play-again-button {
-    width: 100%;
     padding: 12px 24px;
     font-size: 16px;
     font-weight: 600;
@@ -356,7 +150,29 @@ body {
 }
 
 .play-again-button:hover {
-    background-color: #fe7c89;
+    background-color: #F6AE2D;
+}
+
+/* Guessed Words */
+.guessed-words-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    width: 100%;
+    padding: 16px;
+    background-color: #f8f9fa;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    justify-content: center;
+}
+
+.guessed-word {
+    background-color: #ffffff;
+    color: #1a2b3c;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 14px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 /* Leaderboards */
@@ -365,20 +181,10 @@ body {
     gap: 16px;
     width: 100%;
     margin-top: 2rem;
+    max-width: 800px;
 }
 
-@media (min-width: 1024px) {
-    .leaderboards-container {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 2rem;
-        max-width: 1000px;
-        margin: 2rem auto;
-    }
-}
-
-.personal-leaderboard, 
-.daily-leaderboard {
+.personal-leaderboard, .daily-leaderboard {
     flex: 1;
     background-color: #f8f9fa;
     border-radius: 12px;
@@ -386,8 +192,7 @@ body {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
-.personal-leaderboard h2, 
-.daily-leaderboard h2 {
+.personal-leaderboard h2, .daily-leaderboard h2 {
     font-size: 16px;
     margin: 0 0 12px 0;
     text-align: center;
@@ -413,24 +218,13 @@ li {
     font-weight: 500;
 }
 
-/* States */
+/* Timer Warning and Critical */
 .timer-warning {
-    color: #F6AE2D;
+    color: #f59e0b;
     font-weight: 600;
 }
 
 .timer-critical {
-    color: #FF5666;
+    color: #ef4444;
     font-weight: 600;
-}
-
-/* Animations */
-@keyframes flash {
-    0% { background-color: #ffffff; }
-    50% { background-color: #FF5666; color: #ffffff; }
-    100% { background-color: #ffffff; }
-}
-
-.guessed-word.flash {
-    animation: flash 0.5s ease-in-out;
 }
