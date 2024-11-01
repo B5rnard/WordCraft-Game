@@ -14,22 +14,24 @@ h1, h2, h3, h4, h5, h6 {
     font-weight: 100; /* Optional: adjust weight if needed */
 }
 
-/* Styling for paragraph text */
+/* Additional styling for paragraph text (if needed) */
 p {
     font-family: 'Inter', sans-serif;
     font-weight: 400;
 }
 
-/* Button & input label styles */
+/* Example for customizing other text elements if needed */
 .button, .input-label {
-    font-family: 'Inter', sans-serif;
+    font-family: 'Inter', sans-serif; /* Set other elements to Inter */
 }
+
 
 body {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
+
 
 /* Game Content */
 .game-content {
@@ -39,6 +41,10 @@ body {
     max-width: 900px;
     margin: 0 auto;
     padding: 1rem;
+}
+
+.game-content.active {
+    opacity: 1;
 }
 
 /* Game Layout */
@@ -266,8 +272,8 @@ body {
     font-size: 14px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     display: flex;
-    align-items: center;
-    justify-content: center;
+    align-items: center; /* Centers content vertically */
+    justify-content: center; /* Centers content horizontally */
 }
 
 /* Play Again Button */
