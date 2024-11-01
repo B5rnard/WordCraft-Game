@@ -30,11 +30,13 @@ body {
 
 .modal-content {
     background: #ffffff;
-    padding: 2.5rem;
-    border-radius: 16px;
-    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
-    max-width: 400px;
+    padding: 1.5rem; /* Reduced padding */
+    border-radius: 12px;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+    max-width: 90%; /* Make it responsive */
+    max-height: 80vh; /* Limit height to 80% of the viewport */
     text-align: center;
+    overflow-y: auto; /* Add scroll for overflow */
 }
 
 .modal-content h1 {
