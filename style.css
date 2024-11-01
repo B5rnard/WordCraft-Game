@@ -197,6 +197,12 @@ body {
     background: #ffffff;
 }
 
+/* Apply Poppins font to input and buttons */
+#wordInput, #submitButton, .play-again-button, .message-container {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400; /* Regular weight */
+}
+
 #submitButton {
     padding: 10px 20px; /* Smaller padding */
     font-size: 15px;
