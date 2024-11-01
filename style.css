@@ -8,6 +8,24 @@ html, body {
     background-color: #ffffff !important;
 }
 
+/* Apply Inconsolata to Headers */
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Inconsolata', monospace;
+    font-weight: 100; /* Optional: adjust weight if needed */
+}
+
+/* Additional styling for paragraph text (if needed) */
+p {
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+}
+
+/* Example for customizing other text elements if needed */
+.button, .input-label {
+    font-family: 'Inter', sans-serif; /* Set other elements to Inter */
+}
+
+
 body {
     display: flex;
     flex-direction: column;
@@ -59,7 +77,7 @@ body {
 .rules p {
     font-size: 1rem;
     line-height: 1.6;
-    color: #4a5568;
+    color: #966b70;
     margin: 0.75rem 0;
 }
 
@@ -174,7 +192,7 @@ body {
     font-size: 2.5rem;
     font-weight: 800;
     margin: 0 0 1.5rem 0;
-    color: #1a2b3c;
+    color: #4a191e;
 }
 
 /* Letters Grid */
@@ -250,7 +268,7 @@ body {
     font-size: 16px;
     font-weight: 600;
     color: #ffffff;
-    background-color: #4CAF50;
+    background-color: #ff5666;
     border: none;
     border-radius: 8px;
     cursor: pointer;
@@ -259,7 +277,7 @@ body {
 }
 
 #submitButton:hover {
-    background-color: #45a049;
+    background-color: #f97885;
     transform: translateY(-1px);
 }
 
@@ -330,7 +348,7 @@ body {
     font-size: 16px;
     font-weight: 600;
     color: #ffffff;
-    background-color: #4CAF50;
+    background-color: #FF5666;
     border: none;
     border-radius: 8px;
     cursor: pointer;
@@ -338,7 +356,7 @@ body {
 }
 
 .play-again-button:hover {
-    background-color: #45a049;
+    background-color: #fe7c89;
 }
 
 /* Leaderboards */
@@ -397,19 +415,19 @@ li {
 
 /* States */
 .timer-warning {
-    color: #f59e0b;
+    color: #F6AE2D;
     font-weight: 600;
 }
 
 .timer-critical {
-    color: #ef4444;
+    color: #FF5666;
     font-weight: 600;
 }
 
 /* Animations */
 @keyframes flash {
     0% { background-color: #ffffff; }
-    50% { background-color: #4CAF50; color: #ffffff; }
+    50% { background-color: #FF5666; color: #ffffff; }
     100% { background-color: #ffffff; }
 }
 
