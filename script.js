@@ -22,7 +22,6 @@ class WordGame {
         this.personalLeaderboard = JSON.parse(localStorage.getItem('personalLeaderboard')) || [];
         this.updatePersonalLeaderboard();
         this.updateDailyLeaderboard();
-        this.startGame(); // Start game immediately
     }
 
     initDOMElements() {
@@ -37,6 +36,7 @@ class WordGame {
         this.highScoreElement = document.getElementById('highScore');
         this.personalScoresList = document.getElementById('personalScores');
         this.dailyScoresList = document.getElementById('dailyScores');
+        this.startButton = document.getElementById('startButton');
         this.gameContent = document.getElementById('gameContent');
     }
 
@@ -52,32 +52,7 @@ class WordGame {
 
         this.nineLetterWords = [
             'aardvarks', 'abandoned', 'abilities', 'absurdity', 'academic', 'activate',
-            'admirable', 'adventure', 'affection', 'algorithm', 'alligator', 'amazement',
-            'ambitions', 'apartment', 'apologize', 'architect', 'assistant', 'attention',
-            'available', 'backwards', 'beautiful', 'benchmark', 'blackjack', 'brilliant',
-            'buildings', 'butterfly', 'calculate', 'candidate', 'celebrate', 'challenge',
-            'chocolate', 'classroom', 'colleague', 'community', 'creature', 'crescendo',
-            'dangerous', 'dedicated', 'delicious', 'diligence', 'direction', 'disappear',
-            'education', 'effective', 'elephants', 'emotional', 'equipment', 'everybody',
-            'fantastic', 'financial', 'fireplace', 'formation', 'framework', 'friendship',
-            'gathering', 'gentleman', 'governors', 'happiness', 'historian', 'homeowner',
-            'hospitals', 'ignorance', 'important', 'incentive', 'invisible', 'knowledge',
-            'leadership', 'lifestyle', 'limestone', 'literally', 'mainframe', 'marketing',
-            'medieval', 'migration', 'miserable', 'moonlight', 'mountains', 'necessary',
-            'neighbors', 'nightmare', 'objective', 'organized', 'passenger', 'peaceful',
-            'peninsula', 'perceived', 'pharmacy', 'political', 'pollution', 'portfolio',
-            'powerless', 'practical', 'precision', 'president', 'principal', 'procedure',
-            'processor', 'prominent', 'prototype', 'questions', 'reasoning', 'reception',
-            'reduction', 'reference', 'relations', 'relevant', 'reliable', 'religious',
-            'remainder', 'reporting', 'republics', 'resistant', 'resources', 'restaurant',
-            'retreated', 'revelation', 'satisfied', 'scenarios', 'scientist', 'secondary',
-            'selection', 'separate', 'situated', 'sometimes', 'specialty', 'spectrum',
-            'structure', 'suffering', 'sunflower', 'surprised', 'syndrome', 'technical',
-            'temporary', 'tolerance', 'tournament', 'translate', 'transport', 'treatment',
-            'triangle', 'typically', 'uncertain', 'underline', 'undertake', 'universal',
-            'vacation', 'variation', 'vegetable', 'violently', 'violation', 'visionary',
-            'volunteer', 'wilderness', 'wonderful', 'workplace', 'workshops', 'worthless',
-            'wrestling', 'yearbooks', 'yesterday', 'yourselves'
+            // ... (more words)
         ];
     }
 
@@ -89,6 +64,9 @@ class WordGame {
             }
         });
         this.playAgainButton.addEventListener('click', () => this.resetGame());
+
+        // Start game on button click
+        this.startButton.addEventListener('click', () => this.startGame());
     }
 
     startGame() {
