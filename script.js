@@ -22,7 +22,7 @@ class WordGame {
         this.personalLeaderboard = JSON.parse(localStorage.getItem('personalLeaderboard')) || [];
         this.updatePersonalLeaderboard();
         this.updateDailyLeaderboard();
-        this.startGame();
+        // Don't start the game automatically anymore
     }
 
     initDOMElements() {
@@ -37,6 +37,9 @@ class WordGame {
         this.highScoreElement = document.getElementById('highScore');
         this.personalScoresList = document.getElementById('personalScores');
         this.dailyScoresList = document.getElementById('dailyScores');
+        this.rulesModal = document.getElementById('rulesModal');
+        this.startButton = document.getElementById('startButton');
+        this.gameContent = document.getElementById('gameContent');
     }
 
     initGameState() {
@@ -47,6 +50,7 @@ class WordGame {
         this.nineLetterWord = '';
         this.timerInterval = null;
         this.highScore = parseInt(localStorage.getItem('highScore')) || 0;
+        this.highScoreElement.textContent = this.highScore;
 
         this.nineLetterWords = [
             'aardvarks', 'abandoned', 'abilities', 'absurdity', 'academic', 'activate',
@@ -87,6 +91,13 @@ class WordGame {
             }
         });
         this.playAgainButton.addEventListener('click', () => this.resetGame());
+        
+        // Add modal control
+        this.startButton.addEventListener('click', () => {
+            this.rulesModal.style.display = 'none';
+            this.gameContent.classList.add('active');
+            this.startGame();
+        });
     }
 
     startGame() {
@@ -94,11 +105,15 @@ class WordGame {
         this.generateLetters();
         this.startTimer();
         this.wordInput.focus();
+        this.wordInput.disabled = false;
         this.highScoreElement.textContent = this.highScore;
         this.playAgainButton.style.display = 'none';
+        this.messageElement.textContent = '';
+        this.scoreElement.textContent = '0';
     }
 
     resetGame() {
+        clearInterval(this.timerInterval);
         this.initGameState();
         this.wordInput.disabled = false;
         this.guessedWordsContainer.innerHTML = '';
@@ -137,6 +152,8 @@ class WordGame {
     }
 
     startTimer() {
+        clearInterval(this.timerInterval);
+        this.timeLeft = 30;
         this.timerElement.textContent = this.timeLeft;
         this.timerInterval = setInterval(() => {
             this.timeLeft--;
@@ -265,7 +282,7 @@ class WordGame {
     }
 
     saveScoreToFirebase(score) {
-        const today = new Date().toISOString().split('T')[0]; // Get today's date
+        const today = new Date().toISOString().split('T')[0];
         const newScoreRef = db.ref(`scores/${today}`).push();
         newScoreRef.set({
             score: score,
@@ -276,12 +293,12 @@ class WordGame {
     updatePersonalLeaderboard() {
         this.personalLeaderboard.push(this.score);
         this.personalLeaderboard.sort((a, b) => b - a);
-        this.personalLeaderboard = this.personalLeaderboard.slice(0, 5); // Keep top 5 scores
+        this.personalLeaderboard = this.personalLeaderboard.slice(0, 5);
         localStorage.setItem('personalLeaderboard', JSON.stringify(this.personalLeaderboard));
     
         this.personalScoresList.innerHTML = this.personalLeaderboard
-          .map((score, index) => `<li>${score}</li>`)
-          .join('');
+            .map(score => `<li>${score}</li>`)
+            .join('');
     }
 
     updateDailyLeaderboard() {
@@ -294,9 +311,9 @@ class WordGame {
                 snapshot.forEach((childSnapshot) => {
                     scores.push(childSnapshot.val().score);
                 });
-                scores.sort((a, b) => b - a); // Sort scores in descending order
+                scores.sort((a, b) => b - a);
                 this.dailyScoresList.innerHTML = scores
-                    .map((score, index) => `<li>${score}</li>`)
+                    .map(score => `<li>${score}</li>`)
                     .join('');
             });
     }
@@ -306,6 +323,7 @@ class WordGame {
     }
 }
 
+// Initialize game when document loads
 document.addEventListener('DOMContentLoaded', () => {
-    new WordGame();
+    window.game = new WordGame();
 });
