@@ -11,20 +11,18 @@ html, body {
 /* Apply Inconsolata to Headers */
 h1, h2, h3, h4, h5, h6 {
     font-family: 'Inconsolata', monospace;
-    font-weight: 100; /* Optional: adjust weight if needed */
+    font-weight: 100;
 }
 
-/* Additional styling for paragraph text (if needed) */
+/* Additional styling for paragraph text */
 p {
     font-family: 'Inter', sans-serif;
     font-weight: 400;
 }
 
-/* Example for customizing other text elements if needed */
 .button, .input-label {
-    font-family: 'Inter', sans-serif; /* Set other elements to Inter */
+    font-family: 'Inter', sans-serif;
 }
-
 
 body {
     display: flex;
@@ -32,14 +30,13 @@ body {
     align-items: center;
 }
 
-
 /* Game Content */
 .game-content {
     opacity: 1;
     transition: opacity 0.3s ease;
     width: 100%;
-    max-width: 900px;
-    margin: 0 auto;
+    max-width: 600px; /* Reduced max-width for a more compact look */
+    margin: 1.5rem auto; /* Add vertical spacing for a balanced layout */
     padding: 1rem;
 }
 
@@ -51,6 +48,13 @@ body {
 .game-area {
     width: 100%;
     margin: 0 auto;
+}
+
+/* Responsive Scaling */
+@media (min-width: 1024px) {
+    .game-content {
+        transform: scale(0.95); /* Slightly scale down on large screens */
+    }
 }
 
 /* Desktop Layout (min-width: 768px) */
@@ -124,9 +128,9 @@ body {
 }
 
 .app-container h1 {
-    font-size: 2.5rem;
+    font-size: 2rem; /* Smaller heading size for a balanced look */
     font-weight: 800;
-    margin: 0 0 1.5rem 0;
+    margin: 0 0 1rem 0;
     color: #1a2b3c;
 }
 
@@ -134,9 +138,9 @@ body {
 .letters-container {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 12px;
+    gap: 10px;
     width: 100%;
-    padding: 20px;
+    padding: 15px;
     background-color: #f8f9fa;
     border-radius: 12px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
@@ -148,7 +152,7 @@ body {
     aspect-ratio: 1;
     background-color: #ffffff;
     color: #1a2b3c;
-    font-size: clamp(1.5rem, 4vw, 2rem);
+    font-size: clamp(1.3rem, 3vw, 1.8rem); /* Adjusted for responsiveness */
     font-weight: 700;
     display: flex;
     justify-content: center;
@@ -176,7 +180,7 @@ body {
     display: flex;
     gap: 8px;
     width: 100%;
-    padding: 16px;
+    padding: 14px;
     background-color: #f8f9fa;
     border-radius: 12px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
@@ -185,22 +189,17 @@ body {
 
 #wordInput {
     flex: 1;
-    padding: 12px;
-    font-size: 16px;
+    padding: 10px;
+    font-size: 15px; /* Slightly reduced */
     border: 2px solid #e5e7eb;
     border-radius: 8px;
     outline: none;
     background: #ffffff;
 }
 
-#wordInput:focus {
-    border-color: #4CAF50;
-    box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
-}
-
 #submitButton {
-    padding: 12px 24px;
-    font-size: 16px;
+    padding: 10px 20px; /* Smaller padding */
+    font-size: 15px;
     font-weight: 600;
     color: #ffffff;
     background-color: #4CAF50;
@@ -219,14 +218,14 @@ body {
 /* Message Container */
 .message-container {
     width: 100%;
-    padding: 16px;
+    padding: 12px;
     background-color: #f8f9fa;
     border-radius: 12px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
     text-align: center;
-    font-size: 16px;
+    font-size: 15px;
     box-sizing: border-box;
-    min-height: 56px;
+    min-height: 48px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -235,8 +234,8 @@ body {
 /* Status Container */
 .status-container {
     display: flex;
-    gap: 2rem;
-    padding: 1rem;
+    gap: 1.5rem;
+    padding: 0.8rem;
     background-color: #f8f9fa;
     border-radius: 12px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
@@ -244,7 +243,7 @@ body {
 
 .status-item {
     text-align: center;
-    font-size: 1.125rem;
+    font-size: 1rem;
     color: #1a2b3c;
     font-weight: 500;
 }
@@ -255,7 +254,7 @@ body {
     flex-wrap: wrap;
     gap: 8px;
     width: 100%;
-    padding: 16px;
+    padding: 12px;
     background-color: #f8f9fa;
     border-radius: 12px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
@@ -267,20 +266,20 @@ body {
 .guessed-word {
     background-color: #ffffff;
     color: #1a2b3c;
-    padding: 8px 12px;
+    padding: 6px 10px;
     border-radius: 6px;
     font-size: 14px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     display: flex;
-    align-items: center; /* Centers content vertically */
-    justify-content: center; /* Centers content horizontally */
+    align-items: center;
+    justify-content: center;
 }
 
 /* Play Again Button */
 .play-again-button {
     width: 100%;
-    padding: 12px 24px;
-    font-size: 16px;
+    padding: 10px 20px;
+    font-size: 15px;
     font-weight: 600;
     color: #ffffff;
     background-color: #4CAF50;
@@ -297,19 +296,9 @@ body {
 /* Leaderboards */
 .leaderboards-container {
     display: flex;
-    gap: 16px;
+    gap: 1rem;
     width: 100%;
-    margin-top: 2rem;
-}
-
-@media (min-width: 1024px) {
-    .leaderboards-container {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 2rem;
-        max-width: 1000px;
-        margin: 2rem auto;
-    }
+    margin-top: 1.5rem;
 }
 
 .personal-leaderboard, 
@@ -317,7 +306,7 @@ body {
     flex: 1;
     background-color: #f8f9fa;
     border-radius: 12px;
-    padding: 16px;
+    padding: 12px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
