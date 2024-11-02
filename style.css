@@ -208,7 +208,7 @@ body {
     font-size: 15px;
     font-weight: 600;
     color: #ffffff;
-    background-color: #FACF9F;
+    background-color: #4CAF50;
     border: none;
     border-radius: 8px;
     cursor: pointer;
@@ -217,7 +217,7 @@ body {
 }
 
 #submitButton:hover {
-    background-color: #FACF7F;
+    background-color: #45a049;
     transform: translateY(-1px);
 }
 
@@ -288,7 +288,7 @@ body {
     font-size: 15px;
     font-weight: 600;
     color: #ffffff;
-    background-color: #FACF9F;
+    background-color: #4CAF50;
     border: none;
     border-radius: 8px;
     cursor: pointer;
@@ -296,7 +296,7 @@ body {
 }
 
 .play-again-button:hover {
-    background-color: #FACF9F;
+    background-color: #45a049;
 }
 
 /* Leaderboards */
@@ -357,7 +357,7 @@ li {
 /* Animations */
 @keyframes flash {
     0% { background-color: #ffffff; }
-    50% { background-color: #FACF9F; color: #ffffff; }
+    50% { background-color: #4CAF50; color: #ffffff; }
     100% { background-color: #ffffff; }
 }
 
